@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#define TAM 50
 
 float BinarioDecimal (char * x);
 float mediaAritmetica(float * numeros, int n);
@@ -23,11 +22,12 @@ void ErrorProbable (float d_estandar);
 
 int main(int argc, char const *argv[])
 {
-	float media, numeros[TAM];
+	float media, *numeros;
 	int n, i = 1, j = 0, sistema;
 	char * numeroBinario = (char *) malloc (sizeof (char *));
 	printf("\n\n%cCuantos numeros va a ingresar?\t", 168);
 	scanf("%d",&n);
+	numeros = (float *) malloc (sizeof (float *) * n);						//Creamos el arreglo donde guardaremos los numeros
 	system("cls");
 	printf("%cEn que sistema los va a ingresar?\n", 168);
 	printf("\n\n1.Decimal\t\t2.Binario\n\n");
@@ -91,7 +91,7 @@ float mediaAritmetica(float * numeros, int n)
 
 void desviacion(float media, float * numeros, int n)
 {
-	float d[TAM], suma=0, d_prom, suma2 = 0, d_estandar;
+	float d[n], suma=0, d_prom, suma2 = 0, d_estandar;
 	int i = 0, j = 1;
 	float *pt = numeros;
 	float *ptr;
