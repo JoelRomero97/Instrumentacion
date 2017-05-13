@@ -1,0 +1,5 @@
+LIBRARY  PICUSB64
+
+EXPORTS   
+   PicUSBClassInstaller
+   
