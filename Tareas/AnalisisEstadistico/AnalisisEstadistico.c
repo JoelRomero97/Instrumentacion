@@ -26,12 +26,17 @@ int main(int argc, char const *argv[])
 	float media, numeros[TAM];
 	int n, i = 1, j = 0, sistema;
 	char * numeroBinario = (char *) malloc (sizeof (char *));
-	printf("\n\n%cCuantos numeros va a ingresar?\t",168);
+	printf("\n\n%cCuantos numeros va a ingresar?\t", 168);
 	scanf("%d",&n);
 	system("cls");
 	printf("%cEn que sistema los va a ingresar?\n", 168);
 	printf("\n\n1.Decimal\t\t2.Binario\n\n");
 	scanf ("%d", &sistema);
+	if (sistema != 1 && sistema != 2)
+	{
+		printf("Opcion invalida.\n");
+		return 0;
+	}
 	while(i != (n+1))
 	{
 		system ("cls");
@@ -62,9 +67,9 @@ float BinarioDecimal (char * x)
 	{
 		if (*pt == '1')
 		{
-			numeroDecimal += (float ) pow (2, flag);
+			numeroDecimal += (float ) pow (2, flag);				//Si encuentra un 1, sumamos a la variable 2^flag
 		}
-		flag++;
+		flag++;														//Cada que se mueva a la izquierda, sumamos la potencia del 2
 	}
 	return numeroDecimal;
 }
