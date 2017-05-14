@@ -24,7 +24,7 @@ int main(int argc, char const *argv[])
 {
 	float media, *numeros;
 	int n, i = 1, j = 0, sistema;
-	char * numeroBinario = (char *) malloc (sizeof (char *));
+	char * numeroBinario = (char *) malloc (sizeof (char *));				//Creamos un arreglo dinámico ya que no sabemos el numero de bits
 	printf("\n\n%cCuantos numeros va a ingresar?\t", 168);
 	scanf("%d",&n);
 	numeros = (float *) malloc (sizeof (float *) * n);						//Creamos el arreglo donde guardaremos los numeros
@@ -35,7 +35,7 @@ int main(int argc, char const *argv[])
 	if (sistema != 1 && sistema != 2)
 	{
 		printf("Opcion invalida.\n");
-		return 0;
+		return 0;															//Salimos del programa si la opcion no es correcta
 	}
 	while(i != (n+1))
 	{
@@ -43,17 +43,17 @@ int main(int argc, char const *argv[])
 		printf("\nIngrese el numero %d:\t", i++);
 		if (sistema == 1)
 		{
-			scanf("%f", &numeros[j++]);
+			scanf("%f", &numeros[j++]);										//Guardamos los numeros ingresados en el arreglo
 		}else 
 		{
 			scanf ("%s", numeroBinario);
-			numeros [j++] = BinarioDecimal (numeroBinario);
+			numeros [j++] = BinarioDecimal (numeroBinario);					//Convertimos a decimal y lo guardamos en el arreglo
 		}
 	}
-	numeros[j] = '\0';
+	numeros[j] = '\0';														//Insertamos nulo para saber el final de la cadena
 	system("cls");
-	media = mediaAritmetica (numeros, n);
-	desviacion (media, numeros, n);
+	media = mediaAritmetica (numeros, n);									//Sumamos todos los numeros y los dividimos entre n
+	desviacion (media, numeros, n);											//Calculamos desviacion estandar, promedio y desviacion de la media de mediciones
 	return 0;
 }
 
@@ -83,7 +83,6 @@ float mediaAritmetica(float * numeros, int n)
 		suma += (*pt);
 		pt++;
 	}
-	printf("\n\nSUMA:\t%f", suma);
 	media = suma / n;
 	printf("\n\nMEDIA ARITMETICA:\t%f", media);
 	return media;
@@ -96,30 +95,27 @@ void desviacion(float media, float * numeros, int n)
 	float *pt = numeros;
 	float *ptr;
 	while(*pt != '\0')
-	{
-		d[i++] = *pt - media;				//Calculamos la desviación de cada lectura recibida
-		pt++;
-	}
+		d[i++] = (*pt++) - media;												//Calculamos la desviación de cada lectura recibida (medida - mediaDeMediciones)
 	d[i] = '\0';
-	ptr = d;
+	ptr = d;																	//Apuntador al inicio de las desviaciones para imprimirlas
 	printf("\n\nDESVIACI%cN DE LA MEDIA", 224);
 	while(*ptr != '\0')
 	{
 		if(*ptr < 0)
 		{
-			(*ptr) *= -1;							//Cambiamos el signo a positivo en caso de resultar negativo
+			(*ptr) *= -1;														//Cambiamos el signo a positivo en caso de resultar negativo
 		}
-		printf("\nd%d:\t%f", j++, *ptr);
-		suma += (*ptr);
-		suma2 += ((*ptr)*(*ptr));
+		printf("\nd%d:\t%f", j++, *ptr);										//Imprimimos cada una de las desviaciones de la media
+		suma += (*ptr);															//Sumamos todas las desviaciones
+		suma2 += ((*ptr)*(*ptr));												//Sumamos todas las desviaciones al cuadrado para la desviación estándar
 		ptr++;
 	}
-	d_prom = suma/n;
+	d_prom = suma/n;															//Calculamos la desviación promedio
 	printf("\n\nDESVIACI%cN PROMEDIO:\t%f", 224, d_prom);
-	d_estandar = sqrt(suma2/(n-1));
+	d_estandar = sqrt(suma2/(n-1));												//Calculamos la desviación estándar
 	printf("\n\nDESVIACI%cN ESTANDAR:\t%f", 224, d_estandar);
-	Varianza (d_estandar);										//Calculamos la varianza
-	ErrorProbable (d_estandar);									//Calculamos el error probable
+	Varianza (d_estandar);														//Calculamos la varianza
+	ErrorProbable (d_estandar);													//Calculamos el error probable
 	return;
 }
 
