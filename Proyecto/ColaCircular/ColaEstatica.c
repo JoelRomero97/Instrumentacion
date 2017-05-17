@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define TAM 5
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////								ColaEstatica.c 									////
@@ -16,33 +17,42 @@
 
 int main(int argc, char const *argv[])
 {
-	char cola[5];
-	int opc, i = 0, j, k;
+	char cola[TAM];
+	int opc, final, j = 0, inicio = 0;
 	while (opc != 2)
 	{
 		system ("cls");
-		if (i < 5)							//La cola no está llena
+		if (j < TAM)										//La cola no está llena
 		{
 			printf ("Ingrese un caracter:\t");
 			fflush(stdin);
-			scanf ("%c", &cola[i++]);
-		}else								//La cola está llena
+			scanf ("%c", &cola[j++]);
+		}else												//La cola está llena
 		{
-			i = 4;k=0;
-			for (j = 1; j < 5; j++)
-			{
-				cola[k++] = cola[j];
-			}
+			j = 0;inicio = (TAM + 1);
 			printf ("Ingrese un caracter:\t");
 			fflush(stdin);
-			scanf ("%c", &cola[i++]);
+			scanf ("%c", &cola[j++]);
 		}
 		printf("%cDesea encolar otro?\n1.Si\t\t2.No\n\n", 168);
 		fflush(stdin);
 		scanf ("%d",&opc);
 	}
-	cola[i] = '\0';
+	if (j < TAM && inicio == (TAM + 1))
+	{
+		final = j - 1;
+		inicio = j;
+	}else if (j == TAM && inicio == (TAM + 1))
+	{
+		final = 4;
+		inicio = 0;
+	}else if (inicio == 0)
+	{
+		final = j - 1;
+	}
+	cola[TAM] = '\0';
 	printf("La cola hasta el momento es:\t%s",cola);
 	printf("\n\n\n");
+	printf("Los indices son:\n\n1.INICIO:\t%d\n2.FINAL:\t%d", inicio, final);
 	return 0;
 }
