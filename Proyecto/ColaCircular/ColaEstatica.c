@@ -17,8 +17,8 @@
 
 int main(int argc, char const *argv[])
 {
-	char cola[TAM];
-	int opc, final, j = 0, inicio = 0;
+	char cola[TAM], colaFinal[TAM];
+	int opc, final, j = 0, inicio = 0, i, k = 0;
 	while (opc != 2)
 	{
 		system ("cls");
@@ -54,5 +54,15 @@ int main(int argc, char const *argv[])
 	printf("La cola hasta el momento es:\t%s",cola);
 	printf("\n\n\n");
 	printf("Los indices son:\n\n1.INICIO:\t%d\n2.FINAL:\t%d", inicio, final);
+	printf("\n\n\n");
+	i = inicio;
+	for (j = 0; j < TAM; j++)
+	{
+		colaFinal[k++] = cola[i++];
+		if (i == TAM)
+			i = 0;
+	}
+	colaFinal[TAM] = '\0';
+	printf("La cola despues de reacomodar de acuerdo a los indices es:\t%s\n", colaFinal);
 	return 0;
 }
