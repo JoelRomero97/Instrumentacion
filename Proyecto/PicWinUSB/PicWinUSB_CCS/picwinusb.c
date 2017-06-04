@@ -8,11 +8,11 @@
 //// el valor obtenido a la PC vía USB.                              ////
 //// Esto lo realiza haciendo uso del Driver WinUSB de Microsoft     ////
 //// compatible con Windows 7/Vista/XP de 32 y 64 bits.              ////
-//// http://www.microsoft.com/whdc/device/connect/WinUsb_HowTo.mspx  ////
+//// http://www.microsoft.com/whdc/device/connect/WinUsb_HowTo.mspx  ////                                                      ////
 ////                                                                 ////
 //// Realizado con el compilador CCS PCWH 4.057                      ////
 ////                                                                 ////
-//// Modificado Por: Romero Gamarra Joel Mauricio                    ////
+//// Modificado Por: Edgardo Adrián Franco Martínez                  ////
 //// Tomado de http://www.hobbypic.com                               ////
 /////////////////////////////////////////////////////////////////////////
 
@@ -37,8 +37,8 @@
 #define USB_HID_DEVICE     FALSE             //Disabled HID
 #define USB_EP1_TX_ENABLE  USB_ENABLE_BULK   //Turn on EP1(EndPoint1) for IN bulk/interrupt transfers
 #define USB_EP1_RX_ENABLE  USB_ENABLE_BULK   //Turn on EP1(EndPoint1) for OUT bulk/interrupt transfers
-#define USB_EP1_TX_SIZE    2                 //Size to allocate for the tx endpoint 1 buffer
-#define USB_EP1_RX_SIZE    64                 //Size to allocate for the rx endpoint 1 buffer
+#define USB_EP1_TX_SIZE    64                 //Size to allocate for the tx endpoint 1 buffer
+#define USB_EP1_RX_SIZE    3                 //Size to allocate for the rx endpoint 1 buffer
 
 #include <pic18_usb.h>     //Microchip PIC18Fxx5x Hardware layer for CCS's PIC USB driver
 #include <PicWinUSB.h>     //Descriptors and USB configuration
@@ -50,31 +50,27 @@
 #define LED_OFF      output_low
 #define LED_TOGGLE   output_toggle
 
+#define TAM 64
 #define modo      recibe[0]
 #define param1    recibe[1]
 #define param2    recibe[2]
 #define resultado envia[0]
-//#define conversion conv[0]
+#define inicioCola colaCircular[0]
+#define finalCola colaCircular[1]
 
 void main(void) {
 
-   int8 recibe[3];                  //Buffer de recepción 
-   int8 envia[64];                   //Buffer de salida
-   int8 conversion;
-
+   int8 recibe[3];                   //Buffer de recepción
+   int8 envia[1];                   //Buffer de salida
+   int8 conversion0[TAM];
+   int8 conversion1[TAM];
+   int8 inicio = 0, final = 0, j = 0;
+   int8 llena = 0;                  //Bandera para saber si la cola ya se llenó
+   int8 colaCircular;
+      
    //Configurar el ADC
    setup_adc_ports(AN0_TO_AN1);
    setup_adc(ADC_CLOCK_INTERNAL);
-   
-   //Tomar una lectura del AN0 del ADC
-   set_adc_channel(0);              //Establecer el canal 0 del ADC
-   delay_us(10);                    //Esperar 10 microsegundos
-   conversion = read_adc();         //Lanzar y leer la conversion
-   
-   //Tomar una lectura del AN1 del ADC
-   set_adc_channel(1);              //Establecer el canal 1 del ADC
-   delay_us(10);                    //Esperar 10 microsegundos
-   conversion = read_adc();         //Lanzar y leer la conversion
    
    //Led Verde OFF, Led Rojo ON
    LED_OFF(LEDV);
@@ -98,33 +94,79 @@ void main(void) {
    {
       if(usb_enumerated())          //si el PicUSB está configurado
       {
+         //TOMA DE MUESTRAS PARA OSCILOSCOPIO
+      
+         if (j < 64)                              //La cola no está llena
+         {
+            //TOMAMOS LECTURAS DEL CANAL 0
+            set_adc_channel(0);
+            delay_us(10);     //Esperar 10 microsegundos
+            conversion0[j] = read_adc(); //Lanzar y leer la conversión
+            //TOMAMOS LECTURAS DEL CANAL 1
+            set_adc_channel(1);
+            delay_us(10);     //Esperar 10 microsegundos
+            conversion1[j] = read_adc();  //Lanzar y leer la conversion
+            j++;
+         }else                                    //La cola está llena
+         {
+            llena = 1;
+            j = 0;
+            inicio = 65;
+            //TOMAMOS LECTURAS DEL CANAL 0
+            set_adc_channel(0);
+            delay_us(10);     //Esperar 10 microsegundos
+            conversion0[j] = read_adc(); //Lanzar y leer la conversión
+            //TOMAMOS LECTURAS DEL CANAL 1
+            set_adc_channel(1);
+            delay_us(10);     //Esperar 10 microsegundos
+            conversion1[j] = read_adc();  //Lanzar y leer la conversion
+            j++;
+         }
+         
+         //FIN DE LA TOMA DE MUESTRAS PARA EL OSCILOSCOPIO
+         
          if (usb_kbhit(1))          //si el endpoint contiene datos del host
          {
-            usb_get_packet(1, recibe, 3); //Tomar el paquete de tamaño 3bytes del EP1 y almacenamos en recibe
+         
+            //ACOMODAMOS EL INCIO Y EL FINAL DE LA COLA CIRCULAR
+            if (j < TAM && inicio == (TAM + 1))
+            {
+               final = j - 1;
+               inicio = j;
+            }else if (j == TAM && inicio == (TAM + 1))
+            {
+               final = TAM - 1;
+               inicio = 0;
+            }else if (inicio == 0)
+            {
+               final = j - 1;
+            }
+            //Tomar el paquete de tamaño 3bytes del EP1 y almacenamos en recibe
+            usb_get_packet(1, recibe, 3);
 
             if (modo == 0) // Modo_Suma
             {
                resultado = param1 + param2;  //hacemos la suma
-               usb_put_packet(1, envia, 64, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 64 bytes del EP1 al PC
+               usb_put_packet(1, envia, 1, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 1byte del EP1 al PC
             }
             
             if (modo == 1) // Modo_Resta
             {
                resultado = param1 - param2;  //hacemos la resta
-               usb_put_packet(1, envia, 64, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 64 bytes del EP1 al PC
+               usb_put_packet(1, envia, 1, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 1byte del EP1 al PC
             }
             
             if (modo == 2) // Modo_Multiplicación
             {
                resultado = param1 * param2;  //hacemos la multiplicación
-               usb_put_packet(1, envia, 64, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 64 bytes del EP1 al PC
+               usb_put_packet(1, envia, 1, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 1byte del EP1 al PC
             }
              
             
             if (modo == 3) // Modo_División
             {
                resultado = param1 / param2;  //hacemos la división
-               usb_put_packet(1, envia, 64, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 64 bytes del EP1 al PC
+               usb_put_packet(1, envia, 1, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 1byte del EP1 al PC
             }            
 
             if (modo == 9) // Modo_Led
@@ -132,21 +174,30 @@ void main(void) {
                if (param1 == 0) {LED_OFF(LEDV); LED_OFF(LEDR);} //apagamos los leds
                if (param1 == 1) {LED_ON(LEDV); LED_OFF(LEDR);} //encendemos led verde
                if (param1 == 2) {LED_OFF(LEDV); LED_ON(LEDR);} //encendemos led rojo
-               if (param1 == 3) {LED_ON(LEDV); LED_ON(LEDR);} //encendemos ambos leds
+               if (param1 == 3) {LED_ON(LEDV); LED_ON(LEDR);} //encendemos los leds
                if (param1 == 4) {LED_TOGGLE(LEDV); LED_TOGGLE(LEDR);} //toggleamos los leds
             }                    
-            if (modo == 10) // Modo_ADC
+            if (modo == 10)                //Modo_ADC_0
             {
-               resultado = read_adc();  //Leer el valor de la ultima conversión del ADC
-               usb_put_packet(1, envia, 64, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 64 bytes del EP1 al PC
+               if (llena)
+               {
+                  usb_put_packet(1, conversion0, TAM, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 64 bytes del EP1 al PC
+               }else
+               {
+                  usb_put_packet(1, conversion0, j, USB_DTS_TOGGLE); //enviamos el paquete de tamaño j bytes del EP1 al PC
+               }
+            }
+            if (modo == 11)                  //Modo_ADC_1
+            {
+               if (llena)
+               {
+                  usb_put_packet(1, conversion1, TAM, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 64 bytes del EP1 al PC
+               }else
+               {
+                  usb_put_packet(1, conversion1, j, USB_DTS_TOGGLE); //enviamos el paquete de tamaño j bytes del EP1 al PC
+               }
             }
          }
       }
-      
-      
-      //CODIGO DE MULTIPLEXAR Y ESPERAR PARA RECOGER MUESTRAS
-      
-      
-      
    }
 }

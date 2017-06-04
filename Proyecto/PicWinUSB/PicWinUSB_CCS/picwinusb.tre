@@ -1,5 +1,5 @@
 ÀÄpicwinusb
-   ÃÄMAIN  0/414  Ram=68
+   ÃÄMAIN  0/692  Ram=139
    ³  ÃÄ??0??
    ³  ÃÄusb_init  0/14  Ram=0
    ³  ³  ÃÄusb_detach  0/40  Ram=1
@@ -22,6 +22,12 @@
    ³  ÃÄusb_put_packet  0/178  Ram=14
    ³  ³  ÀÄusb_flush_in  0/222  Ram=7
    ³  ÃÄ@DIV88  0/42  Ram=3
+   ³  ÃÄusb_put_packet  0/178  Ram=14
+   ³  ³  ÀÄusb_flush_in  0/222  Ram=7
+   ³  ÃÄusb_put_packet  0/178  Ram=14
+   ³  ³  ÀÄusb_flush_in  0/222  Ram=7
+   ³  ÃÄusb_put_packet  0/178  Ram=14
+   ³  ³  ÀÄusb_flush_in  0/222  Ram=7
    ³  ÃÄusb_put_packet  0/178  Ram=14
    ³  ³  ÀÄusb_flush_in  0/222  Ram=7
    ³  ÀÄusb_put_packet  0/178  Ram=14
