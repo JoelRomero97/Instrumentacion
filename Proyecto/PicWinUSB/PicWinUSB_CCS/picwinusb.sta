@@ -1,25 +1,25 @@
 
-ROM used: 4284 (13%)
-          4284 (13%) including unused fragments
+ROM used: 4286 (13%)
+          4286 (13%) including unused fragments
 
           1 Average locations per line
           7 Average locations per statement
 
-RAM used: 628 (31%) at main() level
-          656 (32%) worst case
+RAM used: 629 (31%) at main() level
+          657 (32%) worst case
 
 Stack used: 11 worst case (out of 24 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-  204    99  15  picwinusb.c
-  367     0   0  ..\..\..\..\..\..\Program Files (x86)\PICC\devices\18F2550.h
- 1236   321  50  ..\..\..\..\..\..\Program Files (x86)\PICC\drivers\pic18_usb.h
-  828     0   0  ..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.h
+  214   105  16  picwinusb.c
+  367     0   0  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\devices\18F2550.h
+ 1236   321  50  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\pic18_usb.h
+  828     0   0  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.h
   162     0   0  PicWinUSB.h
-  912   219  34  ..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.c
+  912   219  34  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.c
 ----- -----
- 3709   639 Total
+ 3719   645 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
@@ -68,28 +68,28 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     96   1   0   519  5.2  usb_isr_tkn_setup_StandardEndpoint
 0    118   1   1   618  7.2  usb_Get_Descriptor
 0     14   0   0    76  1.8  usb_finish_set_address
-0    132   2   5   580  6.5  usb_copy_desc_seg_to_ep
-0    692   8 139  4187  9.2  MAIN
+0    132   2   5   584  6.3  usb_copy_desc_seg_to_ep
+0    694   8 140  4446  8.6  MAIN
 0     42   0   3             @DIV88
 
 Program metrics:
     Functions               39
-    Statements              639
+    Statements              645
     Comments                1715
-    Volume (V)              32432
-    Difficilty (D)          175.0
-    Effort to implement (E) 5674737
-    Time to implement (T)   87 hours, 34 minutes
+    Volume (V)              32763
+    Difficilty (D)          174.2
+    Effort to implement (E) 5707699
+    Time to implement (T)   88 hours, 5 minutes
     Est Delivered Bugs (B)  11
-    Cyclomatic Complexity   122
-    Maintainability (MI)    53
+    Cyclomatic Complexity   121
+    Maintainability (MI)    52
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-00006     0  4  
 00008-0009C   150  0  
-0009E-07FFE  4130  28480  
+0009E-07FFE  4132  28478  
 
 
 

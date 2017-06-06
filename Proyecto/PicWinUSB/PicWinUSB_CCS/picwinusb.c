@@ -50,13 +50,15 @@
 #define LED_OFF      output_low
 #define LED_TOGGLE   output_toggle
 
-#define TAM 64
+#define TAM 66
 #define modo      recibe[0]
 #define param1    recibe[1]
 #define param2    recibe[2]
 #define resultado envia[0]
-#define inicioCola colaCircular[0]
-#define finalCola colaCircular[1]
+#define inicio conversion0[0]
+#define final conversion0[1]
+#define inicio1 conversion1[0]
+#define final1 conversion1[1]
 
 void main(void) {
 
@@ -64,9 +66,12 @@ void main(void) {
    int8 envia[1];                   //Buffer de salida
    int8 conversion0[TAM];
    int8 conversion1[TAM];
-   int8 inicio = 0, final = 0, j = 0;
+   int8 j = 2;
    int8 llena = 0;                  //Bandera para saber si la cola ya se llenó
-   int8 colaCircular;
+   inicio = 2;
+   final = 2;
+   inicio1 = 2;
+   final1 = 2;
       
    //Configurar el ADC
    setup_adc_ports(AN0_TO_AN1);
@@ -96,7 +101,7 @@ void main(void) {
       {
          //TOMA DE MUESTRAS PARA OSCILOSCOPIO
       
-         if (j < 64)                              //La cola no está llena
+         if (j < TAM)                              //La cola no está llena
          {
             //TOMAMOS LECTURAS DEL CANAL 0
             set_adc_channel(0);
@@ -110,8 +115,8 @@ void main(void) {
          }else                                    //La cola está llena
          {
             llena = 1;
-            j = 0;
-            inicio = 65;
+            j = 2;
+            inicio = TAM+1;
             //TOMAMOS LECTURAS DEL CANAL 0
             set_adc_channel(0);
             delay_us(10);     //Esperar 10 microsegundos
@@ -128,19 +133,24 @@ void main(void) {
          if (usb_kbhit(1))          //si el endpoint contiene datos del host
          {
          
-            //ACOMODAMOS EL INCIO Y EL FINAL DE LA COLA CIRCULAR
-            if (j < TAM && inicio == (TAM + 1))
+            //OBTENEMOS EL INCIO Y EL FINAL DE LA COLA CIRCULAR
+            if (inicio == TAM +1)
             {
-               final = j - 1;
-               inicio = j;
-            }else if (j == TAM && inicio == (TAM + 1))
-            {
-               final = TAM - 1;
-               inicio = 0;
-            }else if (inicio == 0)
+               if (j < TAM)
+               {
+                  final = j - 1;
+                  inicio = j;
+               }else
+               {
+                  final = TAM;
+                  inicio = 2;
+               }
+            }else
             {
                final = j - 1;
             }
+            inicio1 = inicio;
+            final1 = final;
             //Tomar el paquete de tamaño 3bytes del EP1 y almacenamos en recibe
             usb_get_packet(1, recibe, 3);
 
@@ -181,7 +191,7 @@ void main(void) {
             {
                if (llena)
                {
-                  usb_put_packet(1, conversion0, TAM, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 64 bytes del EP1 al PC
+                  usb_put_packet(1, conversion0, TAM, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 66 bytes del EP1 al PC
                }else
                {
                   usb_put_packet(1, conversion0, j, USB_DTS_TOGGLE); //enviamos el paquete de tamaño j bytes del EP1 al PC
@@ -191,7 +201,7 @@ void main(void) {
             {
                if (llena)
                {
-                  usb_put_packet(1, conversion1, TAM, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 64 bytes del EP1 al PC
+                  usb_put_packet(1, conversion1, TAM, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 66 bytes del EP1 al PC
                }else
                {
                   usb_put_packet(1, conversion1, j, USB_DTS_TOGGLE); //enviamos el paquete de tamaño j bytes del EP1 al PC
