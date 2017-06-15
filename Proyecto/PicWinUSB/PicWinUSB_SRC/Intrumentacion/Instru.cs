@@ -267,7 +267,7 @@ namespace Intrumentacion
             }
             pictureBoxTemp.Image = temp;*/
         }
-
+        
         private void timerSensor_Tick(object sender, EventArgs e)
         {
             bool bres;

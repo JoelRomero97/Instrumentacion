@@ -65,6 +65,7 @@
             this.PicBoxOsiloscopio = new System.Windows.Forms.PictureBox();
             this.btnGrafica = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.textKelvin = new System.Windows.Forms.TextBox();
             this.textGrados = new System.Windows.Forms.TextBox();
             this.textLux = new System.Windows.Forms.TextBox();
             this.comenzarSensores = new System.Windows.Forms.Button();
@@ -80,7 +81,6 @@
             this.timer_luxes = new System.Windows.Forms.Timer(this.components);
             this.timer_temperatura = new System.Windows.Forms.Timer(this.components);
             this.timerSensor = new System.Windows.Forms.Timer(this.components);
-            this.textKelvin = new System.Windows.Forms.TextBox();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -524,6 +524,14 @@
             this.tabPage4.Text = "Sensores";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // textKelvin
+            // 
+            this.textKelvin.Location = new System.Drawing.Point(372, 147);
+            this.textKelvin.Name = "textKelvin";
+            this.textKelvin.Size = new System.Drawing.Size(100, 20);
+            this.textKelvin.TabIndex = 9;
+            this.textKelvin.TextChanged += new System.EventHandler(this.textKelvin_TextChanged);
+            // 
             // textGrados
             // 
             this.textGrados.Location = new System.Drawing.Point(371, 120);
@@ -621,7 +629,7 @@
             // 
             // timer_luxes
             // 
-            this.timer_luxes.Interval = 300;
+            this.timer_luxes.Interval = 1300;
             this.timer_luxes.Tick += new System.EventHandler(this.timer_luxes_Tick);
             // 
             // timer_temperatura
@@ -631,16 +639,8 @@
             // 
             // timerSensor
             // 
-            this.timerSensor.Interval = 1100;
+            this.timerSensor.Interval = 300;
             this.timerSensor.Tick += new System.EventHandler(this.timerSensor_Tick);
-            // 
-            // textKelvin
-            // 
-            this.textKelvin.Location = new System.Drawing.Point(372, 147);
-            this.textKelvin.Name = "textKelvin";
-            this.textKelvin.Size = new System.Drawing.Size(100, 20);
-            this.textKelvin.TabIndex = 9;
-            this.textKelvin.TextChanged += new System.EventHandler(this.textKelvin_TextChanged);
             // 
             // Instru
             // 
