@@ -241,13 +241,15 @@ namespace Intrumentacion
             String aux = rdBuffer[0].ToString();
             int i;
             double grados = 0;
+            double kelvin;
             for (i = 0; i < 10; i ++)
             {
                 grados += int.Parse(aux);
             }
             grados = (grados / 10) * 2.03;
             textGrados.Text = grados + "°C";
-
+            kelvin = grados + 273.15;
+            textKelvin.Text = kelvin + "°K";
             /*
             for (int j = 0; j < 10; j ++)
             { 
@@ -292,6 +294,11 @@ namespace Intrumentacion
         }
 
         private void textLux_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textKelvin_TextChanged(object sender, EventArgs e)
         {
 
         }

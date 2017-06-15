@@ -65,6 +65,8 @@
             this.PicBoxOsiloscopio = new System.Windows.Forms.PictureBox();
             this.btnGrafica = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.textGrados = new System.Windows.Forms.TextBox();
+            this.textLux = new System.Windows.Forms.TextBox();
             this.comenzarSensores = new System.Windows.Forms.Button();
             this.pictureBoxSensor = new System.Windows.Forms.PictureBox();
             this.pictureBoxTemp = new System.Windows.Forms.PictureBox();
@@ -78,8 +80,7 @@
             this.timer_luxes = new System.Windows.Forms.Timer(this.components);
             this.timer_temperatura = new System.Windows.Forms.Timer(this.components);
             this.timerSensor = new System.Windows.Forms.Timer(this.components);
-            this.textLux = new System.Windows.Forms.TextBox();
-            this.textGrados = new System.Windows.Forms.TextBox();
+            this.textKelvin = new System.Windows.Forms.TextBox();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -487,17 +488,17 @@
             // 
             // PicBoxOsiloscopio
             // 
-            this.PicBoxOsiloscopio.Location = new System.Drawing.Point(93, 3);
+            this.PicBoxOsiloscopio.Location = new System.Drawing.Point(45, 3);
             this.PicBoxOsiloscopio.Name = "PicBoxOsiloscopio";
-            this.PicBoxOsiloscopio.Size = new System.Drawing.Size(402, 196);
+            this.PicBoxOsiloscopio.Size = new System.Drawing.Size(472, 196);
             this.PicBoxOsiloscopio.TabIndex = 1;
             this.PicBoxOsiloscopio.TabStop = false;
             // 
             // btnGrafica
             // 
-            this.btnGrafica.Location = new System.Drawing.Point(552, 136);
+            this.btnGrafica.Location = new System.Drawing.Point(552, 117);
             this.btnGrafica.Name = "btnGrafica";
-            this.btnGrafica.Size = new System.Drawing.Size(75, 23);
+            this.btnGrafica.Size = new System.Drawing.Size(95, 42);
             this.btnGrafica.TabIndex = 0;
             this.btnGrafica.Text = "Grafica";
             this.btnGrafica.UseVisualStyleBackColor = true;
@@ -505,6 +506,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.textKelvin);
             this.tabPage4.Controls.Add(this.textGrados);
             this.tabPage4.Controls.Add(this.textLux);
             this.tabPage4.Controls.Add(this.comenzarSensores);
@@ -521,6 +523,21 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Sensores";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // textGrados
+            // 
+            this.textGrados.Location = new System.Drawing.Point(371, 120);
+            this.textGrados.Name = "textGrados";
+            this.textGrados.Size = new System.Drawing.Size(100, 20);
+            this.textGrados.TabIndex = 8;
+            // 
+            // textLux
+            // 
+            this.textLux.Location = new System.Drawing.Point(74, 140);
+            this.textLux.Name = "textLux";
+            this.textLux.Size = new System.Drawing.Size(100, 20);
+            this.textLux.TabIndex = 7;
+            this.textLux.TextChanged += new System.EventHandler(this.textLux_TextChanged);
             // 
             // comenzarSensores
             // 
@@ -617,20 +634,13 @@
             this.timerSensor.Interval = 1100;
             this.timerSensor.Tick += new System.EventHandler(this.timerSensor_Tick);
             // 
-            // textLux
+            // textKelvin
             // 
-            this.textLux.Location = new System.Drawing.Point(74, 140);
-            this.textLux.Name = "textLux";
-            this.textLux.Size = new System.Drawing.Size(100, 20);
-            this.textLux.TabIndex = 7;
-            this.textLux.TextChanged += new System.EventHandler(this.textLux_TextChanged);
-            // 
-            // textGrados
-            // 
-            this.textGrados.Location = new System.Drawing.Point(372, 140);
-            this.textGrados.Name = "textGrados";
-            this.textGrados.Size = new System.Drawing.Size(100, 20);
-            this.textGrados.TabIndex = 8;
+            this.textKelvin.Location = new System.Drawing.Point(372, 147);
+            this.textKelvin.Name = "textKelvin";
+            this.textKelvin.Size = new System.Drawing.Size(100, 20);
+            this.textKelvin.TabIndex = 9;
+            this.textKelvin.TextChanged += new System.EventHandler(this.textKelvin_TextChanged);
             // 
             // Instru
             // 
@@ -710,5 +720,6 @@
         private System.Windows.Forms.Button comenzarSensores;
         private System.Windows.Forms.TextBox textGrados;
         private System.Windows.Forms.TextBox textLux;
+        private System.Windows.Forms.TextBox textKelvin;
     }
 }
