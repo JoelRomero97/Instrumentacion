@@ -69,17 +69,17 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0    118   1   1   618  7.2  usb_Get_Descriptor
 0     14   0   0    76  1.8  usb_finish_set_address
 0    132   1   5   592  5.8  usb_copy_desc_seg_to_ep
-0    844  10 140  5434  8.6  MAIN
+0    844  10 140  5446  9.1  MAIN
 0     42   0   3             @DIV88
 
 Program metrics:
     Functions               39
     Statements              665
     Comments                1726
-    Volume (V)              34011
-    Difficilty (D)          174.0
-    Effort to implement (E) 5919607
-    Time to implement (T)   91 hours, 21 minutes
+    Volume (V)              34025
+    Difficilty (D)          174.5
+    Effort to implement (E) 5937984
+    Time to implement (T)   91 hours, 38 minutes
     Est Delivered Bugs (B)  11
     Cyclomatic Complexity   125
     Maintainability (MI)    51

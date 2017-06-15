@@ -185,7 +185,7 @@ void main(void) {
             
             if (modo == 4) //Sensor de presencia
             {
-               if(input(Presencia))
+               if(!input(Presencia))
                {
                   resultado = 1;
                   LED_ON(LEDPRUEBA);

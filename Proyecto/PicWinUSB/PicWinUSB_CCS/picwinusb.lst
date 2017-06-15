@@ -1,4 +1,4 @@
-CCS PCH C Compiler, Version 4.038, 15176               14-jun.-17 13:47
+CCS PCH C Compiler, Version 4.038, 15176               14-jun.-17 22:52
 
                Filename: C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\picwinusb.lst
 
@@ -6648,9 +6648,9 @@ CCS PCH C Compiler, Version 4.038, 15176               14-jun.-17 13:47
 1008:  SUBLW  04
 100A:  BNZ   1038
 ....................             { 
-....................                if(input(Presencia)) 
+....................                if(!input(Presencia)) 
 100C:  BSF    F93.0
-100E:  BTFSS  F81.0
+100E:  BTFSC  F81.0
 1010:  BRA    101C
 ....................                { 
 ....................                   resultado = 1; 

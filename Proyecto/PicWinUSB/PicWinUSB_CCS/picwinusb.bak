@@ -46,7 +46,7 @@
 
 #define LEDV         PIN_B6
 #define LEDR         PIN_B7
-#define LEDPRUEBA PIN B1
+#define LEDPRUEBA PIN_B1
 #define Presencia PIN_B0
 #define Temperatura PIN_A2
 #define Luz PIN_A3
