@@ -100,9 +100,6 @@ namespace Intrumentacion
         {
             timer_ADC.Start();
             timer_ADC2.Start();
-            timer_luxes.Start();
-            // timer_temperatura.Start();
-            timerSensor.Start();
         }
 
         private void timer_ADC_Tick(object sender, EventArgs e)
@@ -217,9 +214,15 @@ namespace Intrumentacion
             }
             else
             {
-                pictureBoxSensor.Image.Save("Solucion Items/persona.jpg");
+                pictureBoxSensor.Image.Save("Solution Items/persona.jpg");
             }
         }
-        
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            timer_luxes.Start();
+            timer_temperatura.Start();
+            timerSensor.Start();
+        }
     }
 }

@@ -65,6 +65,7 @@
             this.PicBoxOsiloscopio = new System.Windows.Forms.PictureBox();
             this.btnGrafica = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.comenzarSensores = new System.Windows.Forms.Button();
             this.pictureBoxSensor = new System.Windows.Forms.PictureBox();
             this.pictureBoxTemp = new System.Windows.Forms.PictureBox();
             this.pictureBoxLuxes = new System.Windows.Forms.PictureBox();
@@ -502,6 +503,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.comenzarSensores);
             this.tabPage4.Controls.Add(this.pictureBoxSensor);
             this.tabPage4.Controls.Add(this.pictureBoxTemp);
             this.tabPage4.Controls.Add(this.pictureBoxLuxes);
@@ -516,9 +518,19 @@
             this.tabPage4.Text = "Sensores";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // comenzarSensores
+            // 
+            this.comenzarSensores.Location = new System.Drawing.Point(291, 169);
+            this.comenzarSensores.Name = "comenzarSensores";
+            this.comenzarSensores.Size = new System.Drawing.Size(90, 37);
+            this.comenzarSensores.TabIndex = 6;
+            this.comenzarSensores.Text = "Comenzar";
+            this.comenzarSensores.UseVisualStyleBackColor = true;
+            this.comenzarSensores.Click += new System.EventHandler(this.button1_Click);
+            // 
             // pictureBoxSensor
             // 
-            this.pictureBoxSensor.Location = new System.Drawing.Point(481, 21);
+            this.pictureBoxSensor.Location = new System.Drawing.Point(491, 21);
             this.pictureBoxSensor.Name = "pictureBoxSensor";
             this.pictureBoxSensor.Size = new System.Drawing.Size(194, 119);
             this.pictureBoxSensor.TabIndex = 5;
@@ -526,7 +538,7 @@
             // 
             // pictureBoxTemp
             // 
-            this.pictureBoxTemp.Location = new System.Drawing.Point(272, 21);
+            this.pictureBoxTemp.Location = new System.Drawing.Point(313, 21);
             this.pictureBoxTemp.Name = "pictureBoxTemp";
             this.pictureBoxTemp.Size = new System.Drawing.Size(39, 119);
             this.pictureBoxTemp.TabIndex = 4;
@@ -534,7 +546,7 @@
             // 
             // pictureBoxLuxes
             // 
-            this.pictureBoxLuxes.Location = new System.Drawing.Point(24, 21);
+            this.pictureBoxLuxes.Location = new System.Drawing.Point(30, 21);
             this.pictureBoxLuxes.Name = "pictureBoxLuxes";
             this.pictureBoxLuxes.Size = new System.Drawing.Size(38, 119);
             this.pictureBoxLuxes.TabIndex = 3;
@@ -543,7 +555,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(574, 160);
+            this.label11.Location = new System.Drawing.Point(519, 143);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(54, 13);
             this.label11.TabIndex = 2;
@@ -552,7 +564,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(259, 160);
+            this.label10.Location = new System.Drawing.Point(298, 143);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 13);
             this.label10.TabIndex = 1;
@@ -561,7 +573,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(27, 160);
+            this.label9.Location = new System.Drawing.Point(33, 143);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 13);
             this.label9.TabIndex = 0;
@@ -673,5 +685,6 @@
         private System.Windows.Forms.Timer timer_temperatura;
         private System.Windows.Forms.PictureBox pictureBoxSensor;
         private System.Windows.Forms.Timer timerSensor;
+        private System.Windows.Forms.Button comenzarSensores;
     }
 }
