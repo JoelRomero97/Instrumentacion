@@ -1,9 +1,9 @@
-CCS PCH C Compiler, Version 4.038, 15176               05-jun.-17 22:16
+CCS PCH C Compiler, Version 4.038, 15176               14-jun.-17 13:47
 
                Filename: C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\picwinusb.lst
 
-               ROM used: 4286 bytes (13%)
-                         Largest free fragment is 28478
+               ROM used: 4436 bytes (14%)
+                         Largest free fragment is 28328
                RAM used: 629 (31%) at main() level
                          657 (32%) worst case
                Stack:    11 worst case (4 in main + 7 for interrupts)
@@ -6263,19 +6263,23 @@ CCS PCH C Compiler, Version 4.038, 15176               05-jun.-17 22:16
 ....................  
 .................... #define LEDV         PIN_B6 
 .................... #define LEDR         PIN_B7 
+.................... #define LEDPRUEBA PIN_B1 
+.................... #define Presencia PIN_B0 
+.................... #define Temperatura PIN_A2 
+.................... #define Luz PIN_A3 
 .................... #define LED_ON       output_high 
 .................... #define LED_OFF      output_low 
 .................... #define LED_TOGGLE   output_toggle 
 ....................  
-.................... #define TAM 66 
+.................... #define TAM 66                   //Tamaño del arreglo en bytes 
 .................... #define modo      recibe[0] 
 .................... #define param1    recibe[1] 
 .................... #define param2    recibe[2] 
 .................... #define resultado envia[0] 
-.................... #define inicio conversion0[0] 
-.................... #define final conversion0[1] 
-.................... #define inicio1 conversion1[0] 
-.................... #define final1 conversion1[1] 
+.................... #define inicio conversion0[0]    //Inicio del canal AN0 
+.................... #define final conversion0[1]     //Final del canal AN0 
+.................... #define inicio1 conversion1[0]   //Inicio del canal AN1 
+.................... #define final1 conversion1[1]    //Final del canal AN1 
 ....................  
 .................... void main(void) { 
 *
@@ -6293,29 +6297,29 @@ CCS PCH C Compiler, Version 4.038, 15176               05-jun.-17 22:16
 0E22:  CLRF   1F
 0E24:  CLRF   23
 ....................  
-....................    int8 recibe[3];                   //Buffer de recepción 
+....................    int8 recibe[3];                  //Buffer de recepción 
 ....................    int8 envia[1];                   //Buffer de salida 
-....................    int8 conversion0[TAM]; 
-....................    int8 conversion1[TAM]; 
-....................    int8 j = 2; 
+....................    int8 conversion0[TAM];           //Canal AN0 
+....................    int8 conversion1[TAM];           //Canal AN1 
+....................    int8 j = 2;                      //Para guardar datos en el arreglo 
 0E26:  MOVLW  02
 0E28:  MOVWF  xAD
 ....................    int8 llena = 0;                  //Bandera para saber si la cola ya se llenó 
 0E2A:  CLRF   xAE
-....................    inicio = 2; 
+....................    inicio = 2;                      //Inicializamos a inicio en 2 
 0E2C:  MOVWF  29
-....................    final = 2; 
+....................    final = 2;                       //Inicializamos a final en 2 
 0E2E:  MOVWF  2A
-....................    inicio1 = 2; 
+....................    inicio1 = 2;                     //Inicializamos a inicio en 2 
 0E30:  MOVWF  x6B
-....................    final1 = 2; 
+....................    final1 = 2;                      //Inicializamos a final en 2 
 0E32:  MOVWF  x6C
 ....................        
 ....................    //Configurar el ADC 
-....................    setup_adc_ports(AN0_TO_AN1); 
+....................    setup_adc_ports(AN0_TO_AN3); 
 0E34:  MOVF   FC1,W
 0E36:  ANDLW  C0
-0E38:  IORLW  0D
+0E38:  IORLW  0B
 0E3A:  MOVWF  FC1
 ....................    setup_adc(ADC_CLOCK_INTERNAL); 
 0E3C:  BSF    FC0.0
@@ -6358,7 +6362,7 @@ CCS PCH C Compiler, Version 4.038, 15176               05-jun.-17 22:16
 ....................       if(usb_enumerated())          //si el PicUSB está configurado 
 0E5C:  MOVF   1A,F
 0E5E:  BTFSC  FD8.2
-0E60:  BRA    10BE
+0E60:  BRA    1154
 ....................       { 
 ....................          //TOMA DE MUESTRAS PARA OSCILOSCOPIO 
 ....................        
@@ -6493,7 +6497,7 @@ CCS PCH C Compiler, Version 4.038, 15176               05-jun.-17 22:16
 ....................           
 ....................          if (usb_kbhit(1))          //si el endpoint contiene datos del host 
 0F32:  BTFSS  1D.1
-0F34:  BRA    10BE
+0F34:  BRA    1154
 ....................          { 
 ....................           
 ....................             //OBTENEMOS EL INCIO Y EL FINAL DE LA COLA CIRCULAR 
@@ -6637,132 +6641,233 @@ CCS PCH C Compiler, Version 4.038, 15176               05-jun.-17 22:16
 1000:  MOVLW  02
 1002:  MOVWF  xB4
 1004:  RCALL  0D30
-....................             }             
+....................             } 
+....................              
+....................             if (modo == 4) //Sensor de presencia 
+1006:  MOVF   25,W
+1008:  SUBLW  04
+100A:  BNZ   1038
+....................             { 
+....................                if(input(Presencia)) 
+100C:  BSF    F93.0
+100E:  BTFSS  F81.0
+1010:  BRA    101C
+....................                { 
+....................                   resultado = 1; 
+1012:  MOVLW  01
+1014:  MOVWF  28
+....................                   LED_ON(LEDPRUEBA); 
+1016:  BCF    F93.1
+1018:  BSF    F8A.1
+....................                }else 
+101A:  BRA    1022
+....................                { 
+....................                   resultado = 0; 
+101C:  CLRF   28
+....................                   LED_OFF(LEDPRUEBA); 
+101E:  BCF    F93.1
+1020:  BCF    F8A.1
+....................                } 
+....................                usb_put_packet(1, envia, 1, USB_DTS_TOGGLE);    //Enviamos el paquete de tamaño 1 byte del EP1 al PC 
+1022:  MOVLW  01
+1024:  MOVWF  xAF
+1026:  CLRF   xB1
+1028:  MOVLW  28
+102A:  MOVWF  xB0
+102C:  CLRF   xB3
+102E:  MOVLW  01
+1030:  MOVWF  xB2
+1032:  MOVLW  02
+1034:  MOVWF  xB4
+1036:  RCALL  0D30
+....................             } 
+....................              
+....................             if (modo == 5) //Sensor LM35 
+1038:  MOVF   25,W
+103A:  SUBLW  05
+103C:  BNZ   106A
+....................             { 
+....................                set_adc_channel(Temperatura); 
+103E:  MOVLW  08
+1040:  MOVWF  01
+1042:  MOVF   FC2,W
+1044:  ANDLW  C3
+1046:  IORWF  01,W
+1048:  MOVWF  FC2
+....................                resultado = read_adc(); 
+104A:  BSF    FC2.1
+104C:  BTFSC  FC2.1
+104E:  BRA    104C
+1050:  MOVFF  FC4,28
+....................                usb_put_packet(1,envia,1,USB_DTS_TOGGLE); 
+1054:  MOVLW  01
+1056:  MOVWF  xAF
+1058:  CLRF   xB1
+105A:  MOVLW  28
+105C:  MOVWF  xB0
+105E:  CLRF   xB3
+1060:  MOVLW  01
+1062:  MOVWF  xB2
+1064:  MOVLW  02
+1066:  MOVWF  xB4
+1068:  RCALL  0D30
+....................             } 
+....................              
+....................             if (modo == 6) //Luxes 
+106A:  MOVF   25,W
+106C:  SUBLW  06
+106E:  BNZ   109C
+....................             { 
+....................                set_adc_channel(Luz); 
+1070:  MOVLW  0C
+1072:  MOVWF  01
+1074:  MOVF   FC2,W
+1076:  ANDLW  C3
+1078:  IORWF  01,W
+107A:  MOVWF  FC2
+....................                resultado = read_adc(); 
+107C:  BSF    FC2.1
+107E:  BTFSC  FC2.1
+1080:  BRA    107E
+1082:  MOVFF  FC4,28
+....................                usb_put_packet(1,envia,1,USB_DTS_TOGGLE); 
+1086:  MOVLW  01
+1088:  MOVWF  xAF
+108A:  CLRF   xB1
+108C:  MOVLW  28
+108E:  MOVWF  xB0
+1090:  CLRF   xB3
+1092:  MOVLW  01
+1094:  MOVWF  xB2
+1096:  MOVLW  02
+1098:  MOVWF  xB4
+109A:  RCALL  0D30
+....................             } 
 ....................  
 ....................             if (modo == 9) // Modo_Led 
-1006:  MOVF   25,W
-1008:  SUBLW  09
-100A:  BNZ   104E
+109C:  MOVF   25,W
+109E:  SUBLW  09
+10A0:  BNZ   10E4
 ....................             { 
 ....................                if (param1 == 0) {LED_OFF(LEDV); LED_OFF(LEDR);} //apagamos los leds 
-100C:  MOVF   26,F
-100E:  BNZ   1018
-1010:  BCF    F93.6
-1012:  BCF    F8A.6
-1014:  BCF    F93.7
-1016:  BCF    F8A.7
+10A2:  MOVF   26,F
+10A4:  BNZ   10AE
+10A6:  BCF    F93.6
+10A8:  BCF    F8A.6
+10AA:  BCF    F93.7
+10AC:  BCF    F8A.7
 ....................                if (param1 == 1) {LED_ON(LEDV); LED_OFF(LEDR);} //encendemos led verde 
-1018:  DECFSZ 26,W
-101A:  BRA    1024
-101C:  BCF    F93.6
-101E:  BSF    F8A.6
-1020:  BCF    F93.7
-1022:  BCF    F8A.7
+10AE:  DECFSZ 26,W
+10B0:  BRA    10BA
+10B2:  BCF    F93.6
+10B4:  BSF    F8A.6
+10B6:  BCF    F93.7
+10B8:  BCF    F8A.7
 ....................                if (param1 == 2) {LED_OFF(LEDV); LED_ON(LEDR);} //encendemos led rojo 
-1024:  MOVF   26,W
-1026:  SUBLW  02
-1028:  BNZ   1032
-102A:  BCF    F93.6
-102C:  BCF    F8A.6
-102E:  BCF    F93.7
-1030:  BSF    F8A.7
+10BA:  MOVF   26,W
+10BC:  SUBLW  02
+10BE:  BNZ   10C8
+10C0:  BCF    F93.6
+10C2:  BCF    F8A.6
+10C4:  BCF    F93.7
+10C6:  BSF    F8A.7
 ....................                if (param1 == 3) {LED_ON(LEDV); LED_ON(LEDR);} //encendemos los leds 
-1032:  MOVF   26,W
-1034:  SUBLW  03
-1036:  BNZ   1040
-1038:  BCF    F93.6
-103A:  BSF    F8A.6
-103C:  BCF    F93.7
-103E:  BSF    F8A.7
+10C8:  MOVF   26,W
+10CA:  SUBLW  03
+10CC:  BNZ   10D6
+10CE:  BCF    F93.6
+10D0:  BSF    F8A.6
+10D2:  BCF    F93.7
+10D4:  BSF    F8A.7
 ....................                if (param1 == 4) {LED_TOGGLE(LEDV); LED_TOGGLE(LEDR);} //toggleamos los leds 
-1040:  MOVF   26,W
-1042:  SUBLW  04
-1044:  BNZ   104E
-1046:  BCF    F93.6
-1048:  BTG    F8A.6
-104A:  BCF    F93.7
-104C:  BTG    F8A.7
+10D6:  MOVF   26,W
+10D8:  SUBLW  04
+10DA:  BNZ   10E4
+10DC:  BCF    F93.6
+10DE:  BTG    F8A.6
+10E0:  BCF    F93.7
+10E2:  BTG    F8A.7
 ....................             }                     
 ....................             if (modo == 10)                //Modo_ADC_0 
-104E:  MOVF   25,W
-1050:  SUBLW  0A
-1052:  BNZ   1086
+10E4:  MOVF   25,W
+10E6:  SUBLW  0A
+10E8:  BNZ   111C
 ....................             { 
 ....................                if (llena) 
-1054:  MOVF   xAE,F
-1056:  BZ    1070
+10EA:  MOVF   xAE,F
+10EC:  BZ    1106
 ....................                { 
 ....................                   usb_put_packet(1, conversion0, TAM, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 66 bytes del EP1 al PC 
-1058:  MOVLW  01
-105A:  MOVWF  xAF
-105C:  CLRF   xB1
-105E:  MOVLW  29
-1060:  MOVWF  xB0
-1062:  CLRF   xB3
-1064:  MOVLW  42
-1066:  MOVWF  xB2
-1068:  MOVLW  02
-106A:  MOVWF  xB4
-106C:  RCALL  0D30
+10EE:  MOVLW  01
+10F0:  MOVWF  xAF
+10F2:  CLRF   xB1
+10F4:  MOVLW  29
+10F6:  MOVWF  xB0
+10F8:  CLRF   xB3
+10FA:  MOVLW  42
+10FC:  MOVWF  xB2
+10FE:  MOVLW  02
+1100:  MOVWF  xB4
+1102:  RCALL  0D30
 ....................                }else 
-106E:  BRA    1086
+1104:  BRA    111C
 ....................                { 
 ....................                   usb_put_packet(1, conversion0, j, USB_DTS_TOGGLE); //enviamos el paquete de tamaño j bytes del EP1 al PC 
-1070:  MOVLW  01
-1072:  MOVWF  xAF
-1074:  CLRF   xB1
-1076:  MOVLW  29
-1078:  MOVWF  xB0
-107A:  CLRF   xB3
-107C:  MOVFF  AD,B2
-1080:  MOVLW  02
-1082:  MOVWF  xB4
-1084:  RCALL  0D30
+1106:  MOVLW  01
+1108:  MOVWF  xAF
+110A:  CLRF   xB1
+110C:  MOVLW  29
+110E:  MOVWF  xB0
+1110:  CLRF   xB3
+1112:  MOVFF  AD,B2
+1116:  MOVLW  02
+1118:  MOVWF  xB4
+111A:  RCALL  0D30
 ....................                } 
 ....................             } 
 ....................             if (modo == 11)                  //Modo_ADC_1 
-1086:  MOVF   25,W
-1088:  SUBLW  0B
-108A:  BNZ   10BE
+111C:  MOVF   25,W
+111E:  SUBLW  0B
+1120:  BNZ   1154
 ....................             { 
 ....................                if (llena) 
-108C:  MOVF   xAE,F
-108E:  BZ    10A8
+1122:  MOVF   xAE,F
+1124:  BZ    113E
 ....................                { 
 ....................                   usb_put_packet(1, conversion1, TAM, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 66 bytes del EP1 al PC 
-1090:  MOVLW  01
-1092:  MOVWF  xAF
-1094:  CLRF   xB1
-1096:  MOVLW  6B
-1098:  MOVWF  xB0
-109A:  CLRF   xB3
-109C:  MOVLW  42
-109E:  MOVWF  xB2
-10A0:  MOVLW  02
-10A2:  MOVWF  xB4
-10A4:  RCALL  0D30
+1126:  MOVLW  01
+1128:  MOVWF  xAF
+112A:  CLRF   xB1
+112C:  MOVLW  6B
+112E:  MOVWF  xB0
+1130:  CLRF   xB3
+1132:  MOVLW  42
+1134:  MOVWF  xB2
+1136:  MOVLW  02
+1138:  MOVWF  xB4
+113A:  RCALL  0D30
 ....................                }else 
-10A6:  BRA    10BE
+113C:  BRA    1154
 ....................                { 
 ....................                   usb_put_packet(1, conversion1, j, USB_DTS_TOGGLE); //enviamos el paquete de tamaño j bytes del EP1 al PC 
-10A8:  MOVLW  01
-10AA:  MOVWF  xAF
-10AC:  CLRF   xB1
-10AE:  MOVLW  6B
-10B0:  MOVWF  xB0
-10B2:  CLRF   xB3
-10B4:  MOVFF  AD,B2
-10B8:  MOVLW  02
-10BA:  MOVWF  xB4
-10BC:  RCALL  0D30
+113E:  MOVLW  01
+1140:  MOVWF  xAF
+1142:  CLRF   xB1
+1144:  MOVLW  6B
+1146:  MOVWF  xB0
+1148:  CLRF   xB3
+114A:  MOVFF  AD,B2
+114E:  MOVLW  02
+1150:  MOVWF  xB4
+1152:  RCALL  0D30
 ....................                } 
 ....................             } 
 ....................          } 
 ....................       } 
 ....................    } 
-10BE:  BRA    0E5C
+1154:  BRA    0E5C
 .................... } 
-10C0:  SLEEP 
+1156:  SLEEP 
 
 Configuration Fuses:
    Word  1: 0E22   NOIESO NOFCMEN HSPLL PLL3 CPUDIV1 USBDIV

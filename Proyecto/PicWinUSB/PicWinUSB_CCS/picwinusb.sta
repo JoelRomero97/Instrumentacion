@@ -1,6 +1,6 @@
 
-ROM used: 4286 (13%)
-          4286 (13%) including unused fragments
+ROM used: 4436 (14%)
+          4436 (14%) including unused fragments
 
           1 Average locations per line
           7 Average locations per statement
@@ -12,14 +12,14 @@ Stack used: 11 worst case (out of 24 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-  214   105  16  picwinusb.c
+  246   125  19  picwinusb.c
   367     0   0  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\devices\18F2550.h
- 1236   321  50  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\pic18_usb.h
+ 1236   321  48  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\pic18_usb.h
   828     0   0  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.h
   162     0   0  PicWinUSB.h
-  912   219  34  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.c
+  912   219  33  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.c
 ----- -----
- 3719   645 Total
+ 3751   665 Total
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
@@ -42,7 +42,7 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0    402   5  10  1575  8.9  usb_set_configured
 0    106   1   0   448  3.7  usb_isr
 0      6   0   0    25  1.2  usb_isr_sof
-0     44   1   3   142  3.9  usb_disable_endpoints
+0     44   0   3   142  3.9  usb_disable_endpoints
 0     42   0   0   318  4.6  usb_isr_rst
 0     30   0   0   343  3.1  usb_init_ep0_setup
 0      8   0   0    47  1.5  usb_isr_uerr
@@ -68,28 +68,28 @@ Page ROM  %  RAM   Vol Diff  Functions:
 0     96   1   0   519  5.2  usb_isr_tkn_setup_StandardEndpoint
 0    118   1   1   618  7.2  usb_Get_Descriptor
 0     14   0   0    76  1.8  usb_finish_set_address
-0    132   2   5   584  6.3  usb_copy_desc_seg_to_ep
-0    694   8 140  4446  8.6  MAIN
+0    132   1   5   592  5.8  usb_copy_desc_seg_to_ep
+0    844  10 140  5434  8.6  MAIN
 0     42   0   3             @DIV88
 
 Program metrics:
     Functions               39
-    Statements              645
-    Comments                1715
-    Volume (V)              32763
-    Difficilty (D)          174.2
-    Effort to implement (E) 5707699
-    Time to implement (T)   88 hours, 5 minutes
+    Statements              665
+    Comments                1726
+    Volume (V)              34011
+    Difficilty (D)          174.0
+    Effort to implement (E) 5919607
+    Time to implement (T)   91 hours, 21 minutes
     Est Delivered Bugs (B)  11
-    Cyclomatic Complexity   121
-    Maintainability (MI)    52
+    Cyclomatic Complexity   125
+    Maintainability (MI)    51
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-00006     0  4  
 00008-0009C   150  0  
-0009E-07FFE  4132  28478  
+0009E-07FFE  4282  28328  
 
 
 

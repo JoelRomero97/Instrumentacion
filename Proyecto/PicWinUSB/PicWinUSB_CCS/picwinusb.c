@@ -46,35 +46,39 @@
 
 #define LEDV         PIN_B6
 #define LEDR         PIN_B7
+#define LEDPRUEBA PIN_B1
+#define Presencia PIN_B0
+#define Temperatura PIN_A2
+#define Luz PIN_A3
 #define LED_ON       output_high
 #define LED_OFF      output_low
 #define LED_TOGGLE   output_toggle
 
-#define TAM 66
+#define TAM 66                   //Tamaño del arreglo en bytes
 #define modo      recibe[0]
 #define param1    recibe[1]
 #define param2    recibe[2]
 #define resultado envia[0]
-#define inicio conversion0[0]
-#define final conversion0[1]
-#define inicio1 conversion1[0]
-#define final1 conversion1[1]
+#define inicio conversion0[0]    //Inicio del canal AN0
+#define final conversion0[1]     //Final del canal AN0
+#define inicio1 conversion1[0]   //Inicio del canal AN1
+#define final1 conversion1[1]    //Final del canal AN1
 
 void main(void) {
 
-   int8 recibe[3];                   //Buffer de recepción
+   int8 recibe[3];                  //Buffer de recepción
    int8 envia[1];                   //Buffer de salida
-   int8 conversion0[TAM];
-   int8 conversion1[TAM];
-   int8 j = 2;
+   int8 conversion0[TAM];           //Canal AN0
+   int8 conversion1[TAM];           //Canal AN1
+   int8 j = 2;                      //Para guardar datos en el arreglo
    int8 llena = 0;                  //Bandera para saber si la cola ya se llenó
-   inicio = 2;
-   final = 2;
-   inicio1 = 2;
-   final1 = 2;
+   inicio = 2;                      //Inicializamos a inicio en 2
+   final = 2;                       //Inicializamos a final en 2
+   inicio1 = 2;                     //Inicializamos a inicio en 2
+   final1 = 2;                      //Inicializamos a final en 2
       
    //Configurar el ADC
-   setup_adc_ports(AN0_TO_AN1);
+   setup_adc_ports(AN0_TO_AN3);
    setup_adc(ADC_CLOCK_INTERNAL);
    
    //Led Verde OFF, Led Rojo ON
@@ -177,7 +181,35 @@ void main(void) {
             {
                resultado = param1 / param2;  //hacemos la división
                usb_put_packet(1, envia, 1, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 1byte del EP1 al PC
-            }            
+            }
+            
+            if (modo == 4) //Sensor de presencia
+            {
+               if(input(Presencia))
+               {
+                  resultado = 1;
+                  LED_ON(LEDPRUEBA);
+               }else
+               {
+                  resultado = 0;
+                  LED_OFF(LEDPRUEBA);
+               }
+               usb_put_packet(1, envia, 1, USB_DTS_TOGGLE);    //Enviamos el paquete de tamaño 1 byte del EP1 al PC
+            }
+            
+            if (modo == 5) //Sensor LM35
+            {
+               set_adc_channel(Temperatura);
+               resultado = read_adc();
+               usb_put_packet(1,envia,1,USB_DTS_TOGGLE);
+            }
+            
+            if (modo == 6) //Luxes
+            {
+               set_adc_channel(Luz);
+               resultado = read_adc();
+               usb_put_packet(1,envia,1,USB_DTS_TOGGLE);
+            }
 
             if (modo == 9) // Modo_Led
             {
