@@ -226,14 +226,14 @@ FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
 
 Project Files:
     picwinusb.c
-    ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\devices\18F2550.h
-    ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\pic18_usb.h
-    ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.h
+    ..\..\..\..\..\..\..\..\..\Program Files (x86)\PICC\devices\18F2550.h
+    ..\..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\pic18_usb.h
+    ..\..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.h
     PicWinUSB.h
-    ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.c
+    ..\..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.c
 
 Units:
-    C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\picwinusb.c (main)
+    C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\Modificado\picwinusb.c (main)
 
 Compiler Settings:
     Processor:      PIC18F2550
@@ -243,12 +243,12 @@ Compiler Settings:
     Short,Int,Long: 1,8,16
 
 Output Files:
-    Errors:      C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\picwinusb.err
-    Ext Symbols: C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\picwinusb.esym
-    INHX32:      C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\picwinusb.hex
-    Symbols:     C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\picwinusb.sym
-    List:        C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\picwinusb.lst
-    Debug/COFF:  C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\picwinusb.cof
-    Project:     C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\picwinusb.PJT
+    Errors:      C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\Modificado\picwinusb.err
+    Ext Symbols: C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\Modificado\picwinusb.esym
+    INHX32:      C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\Modificado\picwinusb.hex
+    Symbols:     C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\Modificado\picwinusb.sym
+    List:        C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\Modificado\picwinusb.lst
+    Debug/COFF:  C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\Modificado\picwinusb.cof
+    Project:     C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_CCS\Modificado\picwinusb.PJT
     Call Tree:   picwinusb.tre
     Statistics:  picwinusb.sta

@@ -54,7 +54,7 @@
 #define LED_OFF      output_low
 #define LED_TOGGLE   output_toggle
 
-#define TAM 66                   //Tamaño del arreglo en bytes
+#define TAM 67                   //Tamaño del arreglo en bytes
 #define modo      recibe[0]
 #define param1    recibe[1]
 #define param2    recibe[2]
@@ -63,6 +63,8 @@
 #define final conversion0[1]     //Final del canal AN0
 #define inicio1 conversion1[0]   //Inicio del canal AN1
 #define final1 conversion1[1]    //Final del canal AN1
+#define num0 conversion0[2]      //Numero de bytes enviados
+#define num1 conversion1[2]      //Numero de bytes enviados
 
 void main(void) {
 
@@ -70,12 +72,14 @@ void main(void) {
    int8 envia[1];                   //Buffer de salida
    int8 conversion0[TAM];           //Canal AN0
    int8 conversion1[TAM];           //Canal AN1
-   int8 j = 2;                      //Para guardar datos en el arreglo
+   int8 luxes[10];                  //LDR
+   int8 temp[10];                   //LM35
+   int8 j = 3, flag = 0;            //Para guardar datos en el arreglo
    int8 llena = 0;                  //Bandera para saber si la cola ya se llenó
-   inicio = 2;                      //Inicializamos a inicio en 2
-   final = 2;                       //Inicializamos a final en 2
-   inicio1 = 2;                     //Inicializamos a inicio en 2
-   final1 = 2;                      //Inicializamos a final en 2
+   inicio = 3;                      //Inicializamos a inicio en 2
+   final = 3;                       //Inicializamos a final en 2
+   inicio1 = 3;                     //Inicializamos a inicio en 2
+   final1 = 3;                      //Inicializamos a final en 2
       
    //Configurar el ADC
    setup_adc_ports(AN0_TO_AN3);
@@ -119,7 +123,7 @@ void main(void) {
          }else                                    //La cola está llena
          {
             llena = 1;
-            j = 2;
+            j = 3;
             inicio = TAM+1;
             //TOMAMOS LECTURAS DEL CANAL 0
             set_adc_channel(0);
@@ -130,6 +134,30 @@ void main(void) {
             delay_us(10);     //Esperar 10 microsegundos
             conversion1[j] = read_adc();  //Lanzar y leer la conversion
             j++;
+         }
+         if (flag < 10)
+         {
+            //TOMAMOS LAS MUESTRAS DE LOS LUXES
+            set_adc_channel(Luz);
+            delay_us(50);
+            luxes[flag] = read_adc();
+            //TOMAMOS LAS MUESTRAS DE LA TEMPERATURA
+            set_adc_channel(Temperatura);
+            delay_us(50);
+            temp[flag] = read_adc();
+            flag ++;
+         }else
+         {
+            flag = 0;
+            //TOMAMOS LAS MUESTRAS DE LOS LUXES
+            set_adc_channel(Luz);
+            delay_us(50);
+            luxes[flag] = read_adc();
+            //TOMAMOS LAS MUESTRAS DE LA TEMPERATURA
+            set_adc_channel(Temperatura);
+            delay_us(50);
+            temp[flag] = read_adc();
+            flag ++;
          }
          
          //FIN DE LA TOMA DE MUESTRAS PARA EL OSCILOSCOPIO
@@ -199,16 +227,16 @@ void main(void) {
             
             if (modo == 5) //Sensor LM35
             {
-               set_adc_channel(Temperatura);
-               resultado = read_adc();
-               usb_put_packet(1,envia,1,USB_DTS_TOGGLE);
+               //set_adc_channel(Temperatura);
+               //resultado = read_adc();
+               usb_put_packet(1,temp,10,USB_DTS_TOGGLE);
             }
             
             if (modo == 6) //Luxes
             {
-               set_adc_channel(Luz);
-               resultado = read_adc();
-               usb_put_packet(1,envia,1,USB_DTS_TOGGLE);
+               //set_adc_channel(Luz);
+               //resultado = read_adc();
+               usb_put_packet(1,luxes,10,USB_DTS_TOGGLE);      //Enviamos el paquete de tamaño 10 bytes del EP1 al PC
             }
 
             if (modo == 9) // Modo_Led
@@ -223,9 +251,11 @@ void main(void) {
             {
                if (llena)
                {
+                  num0 = TAM;
                   usb_put_packet(1, conversion0, TAM, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 66 bytes del EP1 al PC
                }else
                {
+                  num1 = j;
                   usb_put_packet(1, conversion0, j, USB_DTS_TOGGLE); //enviamos el paquete de tamaño j bytes del EP1 al PC
                }
             }
@@ -233,9 +263,11 @@ void main(void) {
             {
                if (llena)
                {
+                  num1 = TAM;
                   usb_put_packet(1, conversion1, TAM, USB_DTS_TOGGLE); //enviamos el paquete de tamaño 66 bytes del EP1 al PC
                }else
                {
+                  num1 = j;
                   usb_put_packet(1, conversion1, j, USB_DTS_TOGGLE); //enviamos el paquete de tamaño j bytes del EP1 al PC
                }
             }

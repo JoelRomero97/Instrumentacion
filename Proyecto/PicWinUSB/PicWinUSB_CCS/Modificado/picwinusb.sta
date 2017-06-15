@@ -13,11 +13,11 @@ Stack used: 11 worst case (out of 24 total available)
 Lines Stmts  %   Files
 ----- ----- ---  -----
   278   143  21  picwinusb.c
-  367     0   0  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\devices\18F2550.h
- 1236   321  47  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\pic18_usb.h
-  828     0   0  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.h
+  367     0   0  ..\..\..\..\..\..\..\..\..\Program Files (x86)\PICC\devices\18F2550.h
+ 1236   321  47  ..\..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\pic18_usb.h
+  828     0   0  ..\..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.h
   162     0   0  PicWinUSB.h
-  912   219  32  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.c
+  912   219  32  ..\..\..\..\..\..\..\..\..\Program Files (x86)\PICC\drivers\usb.c
 ----- -----
  3783   683 Total
 
