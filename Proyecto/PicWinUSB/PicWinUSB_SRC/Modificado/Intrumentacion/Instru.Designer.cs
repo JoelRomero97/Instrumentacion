@@ -71,7 +71,6 @@
             this.comenzarSensores = new System.Windows.Forms.Button();
             this.textLux = new System.Windows.Forms.TextBox();
             this.pictureBoxSensor = new System.Windows.Forms.PictureBox();
-            this.pictureBoxTemp = new System.Windows.Forms.PictureBox();
             this.pictureBoxLuxes = new System.Windows.Forms.PictureBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -82,6 +81,11 @@
             this.timer_luxes = new System.Windows.Forms.Timer(this.components);
             this.timer_temperatura = new System.Windows.Forms.Timer(this.components);
             this.timerSensor = new System.Windows.Forms.Timer(this.components);
+            this.error = new System.Windows.Forms.TextBox();
+            this.textErrorTemp = new System.Windows.Forms.TextBox();
+            this.textErrorKelvin = new System.Windows.Forms.TextBox();
+            this.labelTemp2 = new System.Windows.Forms.Label();
+            this.labelTemp1 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -89,7 +93,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxOsiloscopio)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSensor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTemp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLuxes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -500,9 +503,9 @@
             // 
             // PicBoxOsiloscopio
             // 
-            this.PicBoxOsiloscopio.Location = new System.Drawing.Point(43, 24);
+            this.PicBoxOsiloscopio.Location = new System.Drawing.Point(43, 14);
             this.PicBoxOsiloscopio.Name = "PicBoxOsiloscopio";
-            this.PicBoxOsiloscopio.Size = new System.Drawing.Size(472, 196);
+            this.PicBoxOsiloscopio.Size = new System.Drawing.Size(472, 231);
             this.PicBoxOsiloscopio.TabIndex = 1;
             this.PicBoxOsiloscopio.TabStop = false;
             // 
@@ -518,12 +521,16 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.labelTemp1);
+            this.tabPage4.Controls.Add(this.labelTemp2);
+            this.tabPage4.Controls.Add(this.textErrorKelvin);
+            this.tabPage4.Controls.Add(this.textErrorTemp);
+            this.tabPage4.Controls.Add(this.error);
             this.tabPage4.Controls.Add(this.textKelvin);
             this.tabPage4.Controls.Add(this.textGrados);
             this.tabPage4.Controls.Add(this.comenzarSensores);
             this.tabPage4.Controls.Add(this.textLux);
             this.tabPage4.Controls.Add(this.pictureBoxSensor);
-            this.tabPage4.Controls.Add(this.pictureBoxTemp);
             this.tabPage4.Controls.Add(this.pictureBoxLuxes);
             this.tabPage4.Controls.Add(this.label11);
             this.tabPage4.Controls.Add(this.label10);
@@ -538,7 +545,7 @@
             // 
             // textKelvin
             // 
-            this.textKelvin.Location = new System.Drawing.Point(372, 147);
+            this.textKelvin.Location = new System.Drawing.Point(338, 104);
             this.textKelvin.Name = "textKelvin";
             this.textKelvin.Size = new System.Drawing.Size(100, 20);
             this.textKelvin.TabIndex = 9;
@@ -546,7 +553,7 @@
             // 
             // textGrados
             // 
-            this.textGrados.Location = new System.Drawing.Point(371, 120);
+            this.textGrados.Location = new System.Drawing.Point(338, 48);
             this.textGrados.Name = "textGrados";
             this.textGrados.Size = new System.Drawing.Size(100, 20);
             this.textGrados.TabIndex = 8;
@@ -563,7 +570,7 @@
             // 
             // textLux
             // 
-            this.textLux.Location = new System.Drawing.Point(74, 140);
+            this.textLux.Location = new System.Drawing.Point(74, 103);
             this.textLux.Name = "textLux";
             this.textLux.Size = new System.Drawing.Size(100, 20);
             this.textLux.TabIndex = 7;
@@ -577,14 +584,6 @@
             this.pictureBoxSensor.TabIndex = 5;
             this.pictureBoxSensor.TabStop = false;
             // 
-            // pictureBoxTemp
-            // 
-            this.pictureBoxTemp.Location = new System.Drawing.Point(313, 21);
-            this.pictureBoxTemp.Name = "pictureBoxTemp";
-            this.pictureBoxTemp.Size = new System.Drawing.Size(39, 119);
-            this.pictureBoxTemp.TabIndex = 4;
-            this.pictureBoxTemp.TabStop = false;
-            // 
             // pictureBoxLuxes
             // 
             this.pictureBoxLuxes.Location = new System.Drawing.Point(30, 21);
@@ -596,7 +595,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(565, 147);
+            this.label11.Location = new System.Drawing.Point(567, 158);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(54, 13);
             this.label11.TabIndex = 2;
@@ -605,7 +604,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(298, 143);
+            this.label10.Location = new System.Drawing.Point(300, 158);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 13);
             this.label10.TabIndex = 1;
@@ -614,7 +613,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(33, 143);
+            this.label9.Location = new System.Drawing.Point(33, 158);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 13);
             this.label9.TabIndex = 0;
@@ -654,6 +653,48 @@
             this.timerSensor.Interval = 300;
             this.timerSensor.Tick += new System.EventHandler(this.timerSensor_Tick);
             // 
+            // error
+            // 
+            this.error.Location = new System.Drawing.Point(75, 135);
+            this.error.Name = "error";
+            this.error.Size = new System.Drawing.Size(100, 20);
+            this.error.TabIndex = 10;
+            this.error.TextChanged += new System.EventHandler(this.error_TextChanged);
+            // 
+            // textErrorTemp
+            // 
+            this.textErrorTemp.Location = new System.Drawing.Point(338, 22);
+            this.textErrorTemp.Name = "textErrorTemp";
+            this.textErrorTemp.Size = new System.Drawing.Size(100, 20);
+            this.textErrorTemp.TabIndex = 11;
+            this.textErrorTemp.TextChanged += new System.EventHandler(this.textErrorTemp_TextChanged);
+            // 
+            // textErrorKelvin
+            // 
+            this.textErrorKelvin.Location = new System.Drawing.Point(338, 136);
+            this.textErrorKelvin.Name = "textErrorKelvin";
+            this.textErrorKelvin.Size = new System.Drawing.Size(100, 20);
+            this.textErrorKelvin.TabIndex = 12;
+            this.textErrorKelvin.TextChanged += new System.EventHandler(this.textErrorKelvin_TextChanged);
+            // 
+            // labelTemp2
+            // 
+            this.labelTemp2.AutoSize = true;
+            this.labelTemp2.Location = new System.Drawing.Point(263, 126);
+            this.labelTemp2.Name = "labelTemp2";
+            this.labelTemp2.Size = new System.Drawing.Size(36, 13);
+            this.labelTemp2.TabIndex = 13;
+            this.labelTemp2.Text = "Kelvin";
+            // 
+            // labelTemp1
+            // 
+            this.labelTemp1.AutoSize = true;
+            this.labelTemp1.Location = new System.Drawing.Point(252, 38);
+            this.labelTemp1.Name = "labelTemp1";
+            this.labelTemp1.Size = new System.Drawing.Size(65, 13);
+            this.labelTemp1.TabIndex = 14;
+            this.labelTemp1.Text = "Centígrados";
+            // 
             // Instru
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -673,7 +714,6 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSensor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTemp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLuxes)).EndInit();
             this.ResumeLayout(false);
 
@@ -725,7 +765,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PictureBox pictureBoxLuxes;
         private System.Windows.Forms.Timer timer_luxes;
-        private System.Windows.Forms.PictureBox pictureBoxTemp;
         private System.Windows.Forms.Timer timer_temperatura;
         private System.Windows.Forms.PictureBox pictureBoxSensor;
         private System.Windows.Forms.Timer timerSensor;
@@ -734,5 +773,10 @@
         private System.Windows.Forms.TextBox textLux;
         private System.Windows.Forms.TextBox textKelvin;
         private System.Windows.Forms.Button graficaCanal1;
+        private System.Windows.Forms.TextBox error;
+        private System.Windows.Forms.TextBox textErrorTemp;
+        private System.Windows.Forms.TextBox textErrorKelvin;
+        private System.Windows.Forms.Label labelTemp1;
+        private System.Windows.Forms.Label labelTemp2;
     }
 }
