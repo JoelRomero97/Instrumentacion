@@ -1,6 +1,0 @@
->>> Warning 203 "C:\Program Files (x86)\PICC\drivers\pic18_usb.h" Line 436(1,1): Condition always TRUE
->>> Warning 216 "picwinusb.c" Line 279(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
->>> Warning 216 "picwinusb.c" Line 279(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_flush_out)
->>> Warning 216 "picwinusb.c" Line 279(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_flush_in)
-      Memory usage:   ROM=14%      RAM=32% - 33%
-      0 Errors,  4 Warnings.

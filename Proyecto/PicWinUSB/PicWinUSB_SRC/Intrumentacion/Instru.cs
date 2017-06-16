@@ -16,9 +16,8 @@ namespace Intrumentacion
     {
         lectura_de_datos datos;
         operaciones op;
-        Bitmap Osciloscopio = new Bitmap(401, 256);
+        Bitmap Osciloscopio = new Bitmap(472, 231);
         Bitmap luxes = new Bitmap(401, 256);
-        Bitmap temp = new Bitmap(401, 256);
         //PicWinUSBAPI picwinusbapi = new PicWinUSBAPI();
         Int16 x = 0;
         public Instru()
@@ -60,7 +59,7 @@ namespace Intrumentacion
 
             if (datos.numero_2 == 0)
             {
-                MessageBox.Show("Requieres cambiar el denominador, debe ser distinto de 0");
+                MessageBox.Show("Se debe cambiar el denominador, debe ser distinto de 0");
                 txtDiv2.Clear();
                 datos.numero_2 = Double.Parse(txtDiv2.Text);
             }
@@ -95,7 +94,7 @@ namespace Intrumentacion
 
         private void btnGrafica_Click(object sender, EventArgs e)
         {
-            timer_ADC2.Stop();
+            //timer_ADC2.Stop();
             timer_ADC.Start();
         }
 
@@ -132,11 +131,11 @@ namespace Intrumentacion
                 if (auxBuffer[i] > 0) //Si se recibe un valor mayor a 0
                 {
                     //AdcBar.Value = (int)(auxBuffer[i] * 100 / 254); //Dibujar en la barra
-                    if (x > 400)
+                    if (x > 471)
                     {
                         x = 0;
                         Osciloscopio.Dispose();
-                        Osciloscopio = new Bitmap(401, 256);
+                        Osciloscopio = new Bitmap(472, 231);
                     }
                     Osciloscopio.SetPixel(x++, 255 - auxBuffer[i] / 2, Color.Red);
                 }
@@ -177,11 +176,11 @@ namespace Intrumentacion
                 if (auxBuffer[i] > 0) //Si se recibe un valor mayor a 0
                 {
                     //AdcBar.Value = (int)(auxBuffer[i] * 100 / 254); //Dibujar en la barra
-                    if (x > 400)
+                    if (x > 471)
                     {
                         x = 0;
                         Osciloscopio.Dispose();
-                        Osciloscopio = new Bitmap(401, 256);
+                        Osciloscopio = new Bitmap(472, 231);
                     }
                     Osciloscopio.SetPixel(x++, 255 - auxBuffer[i] / 2, Color.Green);
                 }
@@ -200,15 +199,27 @@ namespace Intrumentacion
             bres = op.picwinusbapi.Read_PicWinUSB(op.iHandle, rdBuffer);
             int i;
             String aux;
-            double lux = 0;
-            for (i = 0; i < 10; i ++)
+            double lux = 0, errorProbable, media, desviacion, suma = 0;
+            double [] di = new double[10];
+            for (i = 0; i < 10; i++)
             {
                 aux = rdBuffer[i].ToString();
                 lux += int.Parse(aux);
             }
-            lux = (lux / 10);
-            lux = (lux * lux) / 7.5;
-            textLux.Text = lux + " lux";
+            media = (lux / 10);
+            lux = (Math.Pow(media, 2) / 7.5);
+
+            //CALCULAMOS EL ERROR PROBABLE
+            for (int k = 0; k < 10; k++)
+            {
+                aux = rdBuffer[k].ToString();
+                di[k] = (int.Parse(aux) - media);
+                suma += Math.Pow(di[k], 2);
+            }
+            desviacion = Math.Sqrt(suma / 9);
+            errorProbable = desviacion * 0.6745;
+            textLux.Text = lux + " luxes";
+            error.Text = errorProbable + "luxes";
 
             /*
              for (int j = 0; j < 10; j ++)
@@ -219,13 +230,13 @@ namespace Intrumentacion
                      if (x > 400)
                      {
                          x = 0;
-                         temp.Dispose();
-                         temp = new Bitmap(401, 256);
+                         luxes.Dispose();
+                         luxes = new Bitmap(401, 256);
                      }
-                     temp.SetPixel(x++, 255 - rdBuffer[j] / 2, Color.Red);
+                     luxes.SetPixel(x++, 255 - rdBuffer[j] / 2, Color.Blue);
                  }
              }
-             pictureBoxTemp.Image = temp;*/
+             pictureBoxLuxes.Image = luxes;*/
         }
 
         private void timer_temperatura_Tick(object sender, EventArgs e)
@@ -238,34 +249,35 @@ namespace Intrumentacion
             bres = op.picwinusbapi.Write_PicWinUSB(op.iHandle, sdBuffer);
             bres = op.picwinusbapi.Read_PicWinUSB(op.iHandle, rdBuffer);
 
-            String aux = rdBuffer[0].ToString();
+            String aux;
             int i;
             double grados = 0;
-            double kelvin;
+            double kelvin, media, desviacion, suma = 0;
+            double errorProbable, errorTempKelvin;
+            double[] di = new double [10];
             for (i = 0; i < 10; i ++)
             {
+                aux = rdBuffer[i].ToString();
                 grados += int.Parse(aux);
             }
-            grados = (grados / 10) * 2.03;
+            media = grados / 10;
+            grados = media * 2.03;
+
+            //CALCULAMOS EL ERROR PROBABLE
+            for (int k = 0; k < 10; k ++)
+            {
+                aux = rdBuffer[k].ToString();
+                di[k] = (int.Parse(aux) - media);
+                suma += (di[k] * di[k]);
+            }
+            desviacion = Math.Sqrt(suma / 9);
+            errorProbable = 0.6745 * desviacion;
             textGrados.Text = grados + "°C";
+            textErrorTemp.Text = errorProbable + "°C";
+            errorTempKelvin = errorProbable + 23.15;
             kelvin = grados + 273.15;
             textKelvin.Text = kelvin + "°K";
-            /*
-            for (int j = 0; j < 10; j ++)
-            { 
-                if (rdBuffer[j] > 0) //Si se recibe un valor mayor a 0
-                {
-                    //AdcBar.Value = (int)(rdBuffer[j] * 100 / 254); //Dibujar en la barra
-                    if (x > 400)
-                    {
-                        x = 0;
-                        temp.Dispose();
-                        temp = new Bitmap(401, 256);
-                    }
-                    temp.SetPixel(x++, 255 - rdBuffer[j] / 2, Color.Red);
-                }
-            }
-            pictureBoxTemp.Image = temp;*/
+            textErrorKelvin.Text = errorTempKelvin + "°K";
         }
         
         private void timerSensor_Tick(object sender, EventArgs e)
@@ -282,7 +294,7 @@ namespace Intrumentacion
             }
             else
             {
-                pictureBoxSensor.Image = Image.FromFile("Solution Items/persona.jpg");    //C:/Users/Joel_/Desktop/ESCOM/Instrumentación/Proyecto/PicWinUSB/PicWinUSB_SRC/Intrumentacion/persona.jpg
+                pictureBoxSensor.Image = Image.FromFile("E:/PicWinUSB_SRC/Intrumentacion/persona.jpg");    //C:/Users/Joel_/Desktop/ESCOM/Instrumentación/Proyecto/PicWinUSB/PicWinUSB_SRC/Intrumentacion/persona.jpg
             }
         }
 
@@ -305,8 +317,28 @@ namespace Intrumentacion
 
         private void graficaCanal1_Click(object sender, EventArgs e)
         {
-            timer_ADC.Stop();
+            //timer_ADC.Stop();
             timer_ADC2.Start();
+        }
+
+        private void error_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textErrorTemp_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textErrorKelvin_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialTabSelector1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

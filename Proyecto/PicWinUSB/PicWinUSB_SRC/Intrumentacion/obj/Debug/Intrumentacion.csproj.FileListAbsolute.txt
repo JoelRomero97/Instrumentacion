@@ -38,3 +38,16 @@ C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_SRC\M
 C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_SRC\Modificado\Intrumentacion\obj\Debug\Intrumentacion.Instru.resources
 C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_SRC\Modificado\Intrumentacion\obj\Debug\Intrumentacion.Properties.Resources.resources
 C:\Users\Joel_\Desktop\ESCOM\Instrumentación\Proyecto\PicWinUSB\PicWinUSB_SRC\Modificado\Intrumentacion\obj\Debug\Intrumentacion.csproj.GenerateResource.Cache
+E:\PicWinUSB_SRC\Intrumentacion\bin\Debug\Intrumentacion.exe.config
+E:\PicWinUSB_SRC\Intrumentacion\obj\Debug\Intrumentacion.exe
+E:\PicWinUSB_SRC\Intrumentacion\obj\Debug\Intrumentacion.pdb
+E:\PicWinUSB_SRC\Intrumentacion\bin\Debug\Intrumentacion.exe
+E:\PicWinUSB_SRC\Intrumentacion\bin\Debug\Intrumentacion.pdb
+E:\PicWinUSB_SRC\Intrumentacion\bin\Debug\MaterialSkin.dll
+E:\PicWinUSB_SRC\Intrumentacion\obj\Debug\Intrumentacion.csprojResolveAssemblyReference.cache
+E:\PicWinUSB_SRC\Intrumentacion\obj\Debug\Intrumentacion.Instru.resources
+E:\PicWinUSB_SRC\Intrumentacion\obj\Debug\Intrumentacion.Properties.Resources.resources
+E:\PicWinUSB_SRC\Intrumentacion\obj\Debug\Intrumentacion.csproj.GenerateResource.Cache
+G:\PicWinUSB_SRC\Intrumentacion\bin\Debug\Intrumentacion.exe.config
+G:\PicWinUSB_SRC\Intrumentacion\obj\Debug\Intrumentacion.exe
+G:\PicWinUSB_SRC\Intrumentacion\obj\Debug\Intrumentacion.pdb
