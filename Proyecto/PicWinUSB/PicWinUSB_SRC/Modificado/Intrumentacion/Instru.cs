@@ -95,8 +95,8 @@ namespace Intrumentacion
 
         private void btnGrafica_Click(object sender, EventArgs e)
         {
+            timer_ADC2.Stop();
             timer_ADC.Start();
-            timer_ADC2.Start();
         }
 
         private void timer_ADC_Tick(object sender, EventArgs e)
@@ -183,7 +183,7 @@ namespace Intrumentacion
                         Osciloscopio.Dispose();
                         Osciloscopio = new Bitmap(401, 256);
                     }
-                    Osciloscopio.SetPixel(x++, 255 - auxBuffer[i] / 2, Color.Red);
+                    Osciloscopio.SetPixel(x++, 255 - auxBuffer[i] / 2, Color.Green);
                 }
             }
             PicBoxOsiloscopio.Image = Osciloscopio;
@@ -241,13 +241,15 @@ namespace Intrumentacion
             String aux = rdBuffer[0].ToString();
             int i;
             double grados = 0;
+            double kelvin;
             for (i = 0; i < 10; i ++)
             {
                 grados += int.Parse(aux);
             }
             grados = (grados / 10) * 2.03;
             textGrados.Text = grados + "°C";
-
+            kelvin = grados + 273.15;
+            textKelvin.Text = kelvin + "°K";
             /*
             for (int j = 0; j < 10; j ++)
             { 
@@ -265,7 +267,7 @@ namespace Intrumentacion
             }
             pictureBoxTemp.Image = temp;*/
         }
-
+        
         private void timerSensor_Tick(object sender, EventArgs e)
         {
             bool bres;
@@ -280,7 +282,7 @@ namespace Intrumentacion
             }
             else
             {
-                pictureBoxSensor.Image = Image.FromFile("C:/Users/Joel_/Desktop/ESCOM/Instrumentación/Proyecto/PicWinUSB/PicWinUSB_SRC/Intrumentacion/persona.jpg");
+                pictureBoxSensor.Image = Image.FromFile("Solution Items/persona.jpg");    //C:/Users/Joel_/Desktop/ESCOM/Instrumentación/Proyecto/PicWinUSB/PicWinUSB_SRC/Intrumentacion/persona.jpg
             }
         }
 
@@ -294,6 +296,17 @@ namespace Intrumentacion
         private void textLux_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void textKelvin_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void graficaCanal1_Click(object sender, EventArgs e)
+        {
+            timer_ADC.Stop();
+            timer_ADC2.Start();
         }
     }
 }
