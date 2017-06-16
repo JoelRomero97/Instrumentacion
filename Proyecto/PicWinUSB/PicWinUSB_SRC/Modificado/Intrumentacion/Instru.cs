@@ -59,7 +59,7 @@ namespace Intrumentacion
 
             if (datos.numero_2 == 0)
             {
-                MessageBox.Show("Requieres cambiar el denominador, debe ser distinto de 0");
+                MessageBox.Show("Se debe cambiar el denominador, debe ser distinto de 0");
                 txtDiv2.Clear();
                 datos.numero_2 = Double.Parse(txtDiv2.Text);
             }
@@ -131,11 +131,11 @@ namespace Intrumentacion
                 if (auxBuffer[i] > 0) //Si se recibe un valor mayor a 0
                 {
                     //AdcBar.Value = (int)(auxBuffer[i] * 100 / 254); //Dibujar en la barra
-                    if (x > 400)
+                    if (x > 471)
                     {
                         x = 0;
                         Osciloscopio.Dispose();
-                        Osciloscopio = new Bitmap(401, 256);
+                        Osciloscopio = new Bitmap(472, 231);
                     }
                     Osciloscopio.SetPixel(x++, 255 - auxBuffer[i] / 2, Color.Red);
                 }
@@ -176,11 +176,11 @@ namespace Intrumentacion
                 if (auxBuffer[i] > 0) //Si se recibe un valor mayor a 0
                 {
                     //AdcBar.Value = (int)(auxBuffer[i] * 100 / 254); //Dibujar en la barra
-                    if (x > 400)
+                    if (x > 471)
                     {
                         x = 0;
                         Osciloscopio.Dispose();
-                        Osciloscopio = new Bitmap(401, 256);
+                        Osciloscopio = new Bitmap(472, 231);
                     }
                     Osciloscopio.SetPixel(x++, 255 - auxBuffer[i] / 2, Color.Green);
                 }
@@ -230,13 +230,13 @@ namespace Intrumentacion
                      if (x > 400)
                      {
                          x = 0;
-                         temp.Dispose();
-                         temp = new Bitmap(401, 256);
+                         luxes.Dispose();
+                         luxes = new Bitmap(401, 256);
                      }
-                     temp.SetPixel(x++, 255 - rdBuffer[j] / 2, Color.Red);
+                     luxes.SetPixel(x++, 255 - rdBuffer[j] / 2, Color.Blue);
                  }
              }
-             pictureBoxTemp.Image = temp;*/
+             pictureBoxLuxes.Image = luxes;*/
         }
 
         private void timer_temperatura_Tick(object sender, EventArgs e)
@@ -332,6 +332,11 @@ namespace Intrumentacion
         }
 
         private void textErrorKelvin_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialTabSelector1_Click(object sender, EventArgs e)
         {
 
         }
