@@ -76,7 +76,10 @@
             this.comenzarSensores = new System.Windows.Forms.Button();
             this.textLux = new System.Windows.Forms.TextBox();
             this.pictureBoxSensor = new System.Windows.Forms.PictureBox();
+<<<<<<< HEAD
             this.pictureBoxLuxes = new System.Windows.Forms.PictureBox();
+=======
+>>>>>>> modificaciones
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -93,7 +96,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxOsiloscopio)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSensor)).BeginInit();
+<<<<<<< HEAD
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLuxes)).BeginInit();
+=======
+>>>>>>> modificaciones
             this.SuspendLayout();
             // 
             // materialTabControl1
@@ -531,7 +537,10 @@
             this.tabPage4.Controls.Add(this.comenzarSensores);
             this.tabPage4.Controls.Add(this.textLux);
             this.tabPage4.Controls.Add(this.pictureBoxSensor);
+<<<<<<< HEAD
             this.tabPage4.Controls.Add(this.pictureBoxLuxes);
+=======
+>>>>>>> modificaciones
             this.tabPage4.Controls.Add(this.label11);
             this.tabPage4.Controls.Add(this.label10);
             this.tabPage4.Controls.Add(this.label9);
@@ -546,24 +555,42 @@
             // labelTemp1
             // 
             this.labelTemp1.AutoSize = true;
+<<<<<<< HEAD
             this.labelTemp1.Location = new System.Drawing.Point(252, 38);
             this.labelTemp1.Name = "labelTemp1";
             this.labelTemp1.Size = new System.Drawing.Size(65, 13);
+=======
+            this.labelTemp1.Font = new System.Drawing.Font("High Tower Text", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTemp1.Location = new System.Drawing.Point(224, 36);
+            this.labelTemp1.Name = "labelTemp1";
+            this.labelTemp1.Size = new System.Drawing.Size(89, 19);
+>>>>>>> modificaciones
             this.labelTemp1.TabIndex = 14;
             this.labelTemp1.Text = "Centígrados";
             // 
             // labelTemp2
             // 
             this.labelTemp2.AutoSize = true;
+<<<<<<< HEAD
             this.labelTemp2.Location = new System.Drawing.Point(263, 126);
             this.labelTemp2.Name = "labelTemp2";
             this.labelTemp2.Size = new System.Drawing.Size(36, 13);
+=======
+            this.labelTemp2.Font = new System.Drawing.Font("High Tower Text", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTemp2.Location = new System.Drawing.Point(263, 121);
+            this.labelTemp2.Name = "labelTemp2";
+            this.labelTemp2.Size = new System.Drawing.Size(50, 19);
+>>>>>>> modificaciones
             this.labelTemp2.TabIndex = 13;
             this.labelTemp2.Text = "Kelvin";
             // 
             // textErrorKelvin
             // 
+<<<<<<< HEAD
             this.textErrorKelvin.Location = new System.Drawing.Point(338, 136);
+=======
+            this.textErrorKelvin.Location = new System.Drawing.Point(338, 103);
+>>>>>>> modificaciones
             this.textErrorKelvin.Name = "textErrorKelvin";
             this.textErrorKelvin.Size = new System.Drawing.Size(100, 20);
             this.textErrorKelvin.TabIndex = 12;
@@ -579,7 +606,11 @@
             // 
             // error
             // 
+<<<<<<< HEAD
             this.error.Location = new System.Drawing.Point(75, 135);
+=======
+            this.error.Location = new System.Drawing.Point(21, 85);
+>>>>>>> modificaciones
             this.error.Name = "error";
             this.error.Size = new System.Drawing.Size(100, 20);
             this.error.TabIndex = 10;
@@ -587,7 +618,11 @@
             // 
             // textKelvin
             // 
+<<<<<<< HEAD
             this.textKelvin.Location = new System.Drawing.Point(338, 104);
+=======
+            this.textKelvin.Location = new System.Drawing.Point(338, 135);
+>>>>>>> modificaciones
             this.textKelvin.Name = "textKelvin";
             this.textKelvin.Size = new System.Drawing.Size(100, 20);
             this.textKelvin.TabIndex = 9;
@@ -602,17 +637,28 @@
             // 
             // comenzarSensores
             // 
+<<<<<<< HEAD
             this.comenzarSensores.Location = new System.Drawing.Point(289, 235);
+=======
+            this.comenzarSensores.BackColor = System.Drawing.Color.DimGray;
+            this.comenzarSensores.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.comenzarSensores.Font = new System.Drawing.Font("High Tower Text", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comenzarSensores.Location = new System.Drawing.Point(285, 235);
+>>>>>>> modificaciones
             this.comenzarSensores.Name = "comenzarSensores";
-            this.comenzarSensores.Size = new System.Drawing.Size(90, 37);
+            this.comenzarSensores.Size = new System.Drawing.Size(127, 37);
             this.comenzarSensores.TabIndex = 6;
             this.comenzarSensores.Text = "Comenzar";
-            this.comenzarSensores.UseVisualStyleBackColor = true;
+            this.comenzarSensores.UseVisualStyleBackColor = false;
             this.comenzarSensores.Click += new System.EventHandler(this.button1_Click);
             // 
             // textLux
             // 
+<<<<<<< HEAD
             this.textLux.Location = new System.Drawing.Point(74, 103);
+=======
+            this.textLux.Location = new System.Drawing.Point(21, 135);
+>>>>>>> modificaciones
             this.textLux.Name = "textLux";
             this.textLux.Size = new System.Drawing.Size(100, 20);
             this.textLux.TabIndex = 7;
@@ -620,12 +666,13 @@
             // 
             // pictureBoxSensor
             // 
-            this.pictureBoxSensor.Location = new System.Drawing.Point(491, 21);
+            this.pictureBoxSensor.Location = new System.Drawing.Point(525, 48);
             this.pictureBoxSensor.Name = "pictureBoxSensor";
             this.pictureBoxSensor.Size = new System.Drawing.Size(194, 119);
             this.pictureBoxSensor.TabIndex = 5;
             this.pictureBoxSensor.TabStop = false;
             // 
+<<<<<<< HEAD
             // pictureBoxLuxes
             // 
             this.pictureBoxLuxes.Location = new System.Drawing.Point(30, 21);
@@ -637,27 +684,47 @@
             // label11
             // 
             this.label11.AutoSize = true;
+=======
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("High Tower Text", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.ControlLight;
+>>>>>>> modificaciones
             this.label11.Location = new System.Drawing.Point(567, 177);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(54, 13);
+            this.label11.Size = new System.Drawing.Size(71, 19);
             this.label11.TabIndex = 2;
             this.label11.Text = "Presencia";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
+<<<<<<< HEAD
+=======
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("High Tower Text", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.ControlLight;
+>>>>>>> modificaciones
             this.label10.Location = new System.Drawing.Point(302, 177);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(67, 13);
+            this.label10.Size = new System.Drawing.Size(95, 19);
             this.label10.TabIndex = 1;
             this.label10.Text = "Temperatura";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
+<<<<<<< HEAD
+=======
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("High Tower Text", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ControlLight;
+>>>>>>> modificaciones
             this.label9.Location = new System.Drawing.Point(33, 177);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 13);
+            this.label9.Size = new System.Drawing.Size(49, 19);
             this.label9.TabIndex = 0;
             this.label9.Text = "Luxes";
             // 
@@ -675,10 +742,12 @@
             // 
             // timer_ADC
             // 
+            this.timer_ADC.Interval = 1700;
             this.timer_ADC.Tick += new System.EventHandler(this.timer_ADC_Tick);
             // 
             // timer_ADC2
             // 
+            this.timer_ADC2.Interval = 1900;
             this.timer_ADC2.Tick += new System.EventHandler(this.timer_ADC2_Tick);
             // 
             // timer_luxes
@@ -715,7 +784,10 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSensor)).EndInit();
+<<<<<<< HEAD
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLuxes)).EndInit();
+=======
+>>>>>>> modificaciones
             this.ResumeLayout(false);
 
         }
@@ -764,7 +836,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.PictureBox pictureBoxLuxes;
         private System.Windows.Forms.Timer timer_luxes;
         private System.Windows.Forms.Timer timer_temperatura;
         private System.Windows.Forms.PictureBox pictureBoxSensor;

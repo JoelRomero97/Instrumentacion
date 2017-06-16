@@ -94,7 +94,7 @@ namespace Intrumentacion
 
         private void btnGrafica_Click(object sender, EventArgs e)
         {
-            timer_ADC2.Stop();
+            //timer_ADC2.Stop();
             timer_ADC.Start();
         }
 
@@ -274,7 +274,11 @@ namespace Intrumentacion
             errorProbable = 0.6745 * desviacion;
             textGrados.Text = grados + "°C";
             textErrorTemp.Text = errorProbable + "°C";
+<<<<<<< HEAD
             errorTempKelvin = errorProbable + 273.15;
+=======
+            errorTempKelvin = errorProbable + 23.15;
+>>>>>>> modificaciones
             kelvin = grados + 273.15;
             textKelvin.Text = kelvin + "°K";
             textErrorKelvin.Text = errorTempKelvin + "°K";
@@ -294,7 +298,7 @@ namespace Intrumentacion
             }
             else
             {
-                pictureBoxSensor.Image = Image.FromFile("Solution Items/persona.jpg");    //C:/Users/Joel_/Desktop/ESCOM/Instrumentación/Proyecto/PicWinUSB/PicWinUSB_SRC/Intrumentacion/persona.jpg
+                pictureBoxSensor.Image = Image.FromFile("E:/PicWinUSB_SRC/Intrumentacion/persona.jpg");    //C:/Users/Joel_/Desktop/ESCOM/Instrumentación/Proyecto/PicWinUSB/PicWinUSB_SRC/Intrumentacion/persona.jpg
             }
         }
 
@@ -317,7 +321,7 @@ namespace Intrumentacion
 
         private void graficaCanal1_Click(object sender, EventArgs e)
         {
-            timer_ADC.Stop();
+            //timer_ADC.Stop();
             timer_ADC2.Start();
         }
 
