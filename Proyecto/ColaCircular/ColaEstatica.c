@@ -58,7 +58,7 @@ int main(int argc, char const *argv[])
 	i = inicio;
 	for (j = 0; j < TAM; j++)
 	{
-		colaFinal[k++] = cola[i++];
+		colaFinal[j] = cola[i++];
 		if (i == TAM)
 			i = 0;
 	}
